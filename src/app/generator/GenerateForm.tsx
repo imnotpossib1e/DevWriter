@@ -1,25 +1,46 @@
 'use client';
 
+import { GeneratePost } from '@/app/data/action/generate';
+import { ApiRes } from '@/app/types/api';
+import { PromptType } from '@/app/types/generate';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Textarea from '@/components/Textarea';
 import { Sparkles } from 'lucide-react';
+import { useActionState, useState } from 'react';
 
 export default function GenerateForm() {
+  // const [prompt, setPrompt] = useState('');
+  // const [blog, setBlog] = useState('');
+  // const [loading, setLoading] = useState(false);
+
+  // const [res, setRes] = useState<ApiRes<PromptType> | null>(null);
+
+  const [generateState, generateAction] = useActionState(GeneratePost, null);
+
+  // setBlog(data.content);
+  // setLoading(false);
+
   return (
     <div className="bg-white/10 border border-white/50 rounded-lg p-10">
-      <form action="/" className="flex flex-col gap-5">
+      <form action={generateAction} className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <label htmlFor="topic" className="font-bold text-lg">
             주제
           </label>
-          <Input placeholder="e.g. 'Node.js와 Express로 RESR API 구축하기'" />
+          <Input
+            name="topic"
+            placeholder="e.g. 'Node.js와 Express로 RESR API 구축하기'"
+          />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="topic" className="font-bold text-lg">
+          <label htmlFor="description" className="font-bold text-lg">
             추가 설명
           </label>
-          <Textarea placeholder="주제에 대한 세부 설명, 강조할 포인트 등을 입력" />
+          <Textarea
+            name="description"
+            placeholder="주제에 대한 세부 설명, 강조할 포인트 등을 입력"
+          />
         </div>
         {/* <div className="flex flex-col gap-2">
           <label htmlFor="topic" className="font-bold text-lg">
@@ -34,10 +55,10 @@ export default function GenerateForm() {
         </div> */}
         <div className="flex flex-3 gap-8 w-full pb-4">
           <div className="flex flex-col w-full gap-2.5">
-            <label htmlFor="templateSelect">템플릿 유형</label>
+            <label htmlFor="template">템플릿 유형</label>
             <select
-              name="templateSelect"
-              id="templateSelect"
+              name="template"
+              id="template"
               className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
             >
               <option value="">템플릿 선택</option>
@@ -48,10 +69,10 @@ export default function GenerateForm() {
             </select>
           </div>
           <div className="flex flex-col w-full gap-2.5">
-            <label htmlFor="lengthSelect">길이</label>
+            <label htmlFor="length">길이</label>
             <select
-              name="lengthSelect"
-              id="lengthSelect"
+              name="length"
+              id="length"
               className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
             >
               <option value="">길이 선택</option>
@@ -61,10 +82,10 @@ export default function GenerateForm() {
             </select>
           </div>
           <div className="flex flex-col w-full gap-2.5">
-            <label htmlFor="toneSelect">톤 앤 매너</label>
+            <label htmlFor="tone">톤 앤 매너</label>
             <select
-              name="toneSelect"
-              id="toneSelect"
+              name="tone"
+              id="tone"
               className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
             >
               <option value="">톤 앤 매너 선택</option>
@@ -78,6 +99,19 @@ export default function GenerateForm() {
           <Sparkles className="w-5" />
           Generate Blog Post
         </Button>
+        {generateState?.ok && generateState.item.content && (
+          <div className="mt-8 p-6 bg-gray-50 rounded-lg text-black">
+            <h2 className="text-2xl font-bold mb-4">📝 생성된 글</h2>
+            <div className="prose max-w-none">{generateState.item.content}</div>
+          </div>
+        )}
+
+        {/* ✅ 에러 표시 */}
+        {generateState?.ok === 0 && (
+          <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            {generateState.message}
+          </div>
+        )}
       </form>
     </div>
   );
