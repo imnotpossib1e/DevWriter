@@ -3,15 +3,37 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Textarea from '@/components/Textarea';
-import { Plus, Sparkles } from 'lucide-react';
+import { Plus, Sparkles, X } from 'lucide-react';
 import { useState } from 'react';
 import GenerateResult from '@/app/generator/GenerateResult';
 import { PostType } from '@/types/generate';
+
+type Keyword = string;
 
 export default function GenerateForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<PostType | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [keywordInput, setKeywordInput] = useState('');
+  const [keywords, setKeywords] = useState<Keyword[]>([]);
+
+  const handleKeyword = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const value = keywordInput.trim();
+
+      if (!value) return;
+      // 중복 방지
+      if (keywords.includes(value)) return;
+
+      setKeywords(prev => [...prev, value]);
+      setKeywordInput('');
+    }
+  };
+
+  const handleRemoveKeyword = (tag: string) => {
+    setKeywords(prev => prev.filter(k => k !== tag));
+  };
 
   const handleGenerate = async (formData: FormData) => {
     setIsLoading(true);
@@ -19,6 +41,7 @@ export default function GenerateForm() {
     try {
       const topic = (formData.get('topic') as string) || '';
       const description = (formData.get('description') as string) || '';
+      const keywords = (formData.get('keywords') as string) || '';
       const template = (formData.get('template') as string) || '';
       const length = (formData.get('length') as string) || 'normal';
       const tone = (formData.get('tone') as string) || 'professional';
@@ -28,6 +51,10 @@ export default function GenerateForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           topic,
+          keyword: keywords
+            .split(',')
+            .map(k => k.trim())
+            .filter(Boolean),
           description,
           template,
           length,
@@ -39,7 +66,7 @@ export default function GenerateForm() {
 
       const data = await res.json();
 
-      console.log('API 응답', data);
+      // console.log('API 응답', data);
       setResult(data);
     } catch (error) {
       console.error(error);
@@ -83,17 +110,51 @@ export default function GenerateForm() {
             required
           />
         </div>
-        {/* <div className="flex flex-col gap-2">
-          <label htmlFor="topic" className="font-bold text-lg">
+        <div className="flex flex-col gap-2">
+          <label htmlFor="keyword" className="font-bold text-lg">
             키워드 태그
           </label>
           <div className="flex gap-2.5">
-            <Input placeholder="키워드를 입력하고 엔터를 누르세요" required />
-            <Button size="sm">
+            <Input
+              name="keyword"
+              placeholder="키워드를 입력하고 엔터를 누르세요"
+              value={keywordInput}
+              onChange={e => setKeywordInput(e.target.value)}
+              onKeyDown={handleKeyword}
+            />
+            <Button
+              type="button"
+              size="sm"
+              onClick={() => {
+                const value = keywordInput.trim();
+                if (!value) return;
+                if (keywords.includes(value)) return;
+                setKeywords(prev => [...prev, value]);
+                setKeywordInput('');
+              }}
+            >
               <Plus />
             </Button>
+            <input
+              type="hidden"
+              name="keywords"
+              value={JSON.stringify(keywords)}
+            />
           </div>
-        </div> */}
+          <div className="flex gap-3">
+            {keywords.map(tag => (
+              <span
+                key={tag}
+                className="flex justify-center items-center gap-2 w-fit bg-purple/40 border border-purple/90 px-2 py-1 rounded-lg text-sm"
+              >
+                {tag}
+                <button type="button" onClick={() => handleRemoveKeyword(tag)}>
+                  <X className="w-3 text-white" />
+                </button>
+              </span>
+            ))}
+          </div>
+        </div>
         <div className="flex flex-3 gap-8 w-full pb-4">
           <div className="flex flex-col w-full gap-2.5">
             <label htmlFor="template">템플릿 유형</label>

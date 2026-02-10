@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function GenerateResult({ post }: Props) {
-  console.log('생성된 포스트', post);
+  // console.log('생성된 포스트', post);
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-2.5 bg-[#78DB88]/10 border border-[#78DB88]/50 rounded-lg py-3 px-4">
