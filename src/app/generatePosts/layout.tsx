@@ -1,6 +1,5 @@
 'use client';
 
-import GenerateResult from '@/app/generator/GenerateResult';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
@@ -21,12 +20,9 @@ export default function RootLayout({
         </div>
         <div className="flex flex-col font-bold">
           <h2 className="text-2xl">Blog Generator</h2>
-          <span className="text-gray-400">
-            Create technical content in seconds
-          </span>
+          <span className="text-gray-400">결과는?</span>
         </div>
       </div>
-
       {children}
     </div>
   );

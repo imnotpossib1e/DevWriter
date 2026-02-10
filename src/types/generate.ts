@@ -6,3 +6,7 @@ export interface PromptType {
   length: string;
   tone: string;
 }
+
+export interface PostType {
+  post: string;
+}

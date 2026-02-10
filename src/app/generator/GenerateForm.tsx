@@ -1,13 +1,14 @@
 'use client';
 
-import { GeneratePost } from '@/app/data/action/generate';
-import { ApiRes } from '@/app/types/api';
-import { PromptType } from '@/app/types/generate';
+import { GeneratePost } from '@/data/action/generate';
+import { ApiRes } from '@/types/api';
+import { PromptType } from '@/types/generate';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Textarea from '@/components/Textarea';
 import { Sparkles } from 'lucide-react';
 import { useActionState, useState } from 'react';
+import GenerateResult from '@/app/generator/GenerateResult';
 
 export default function GenerateForm() {
   // const [prompt, setPrompt] = useState('');
@@ -17,9 +18,13 @@ export default function GenerateForm() {
   // const [res, setRes] = useState<ApiRes<PromptType> | null>(null);
 
   const [generateState, generateAction] = useActionState(GeneratePost, null);
-
+  const isGenerated = !!generateState?.ok && generateState.item?.content;
   // setBlog(data.content);
   // setLoading(false);
+
+  if (isGenerated) {
+    return <GenerateResult post={generateState.item.content!} />;
+  }
 
   return (
     <div className="bg-white/10 border border-white/50 rounded-lg p-10">
@@ -43,16 +48,16 @@ export default function GenerateForm() {
           />
         </div>
         {/* <div className="flex flex-col gap-2">
-          <label htmlFor="topic" className="font-bold text-lg">
-            키워드 태그
-          </label>
-          <div className="flex gap-2.5">
-            <Input placeholder="키워드를 입력하고 엔터를 누르세요" />
-            <Button>
-              <Plus />
-            </Button>
-          </div>
-        </div> */}
+            <label htmlFor="topic" className="font-bold text-lg">
+              키워드 태그
+            </label>
+            <div className="flex gap-2.5">
+              <Input placeholder="키워드를 입력하고 엔터를 누르세요" />
+              <Button>
+                <Plus />
+              </Button>
+            </div>
+          </div> */}
         <div className="flex flex-3 gap-8 w-full pb-4">
           <div className="flex flex-col w-full gap-2.5">
             <label htmlFor="template">템플릿 유형</label>
@@ -99,19 +104,6 @@ export default function GenerateForm() {
           <Sparkles className="w-5" />
           Generate Blog Post
         </Button>
-        {generateState?.ok && generateState.item.content && (
-          <div className="mt-8 p-6 bg-gray-50 rounded-lg text-black">
-            <h2 className="text-2xl font-bold mb-4">📝 생성된 글</h2>
-            <div className="prose max-w-none">{generateState.item.content}</div>
-          </div>
-        )}
-
-        {/* ✅ 에러 표시 */}
-        {generateState?.ok === 0 && (
-          <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-            {generateState.message}
-          </div>
-        )}
       </form>
     </div>
   );

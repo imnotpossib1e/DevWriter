@@ -1,8 +1,9 @@
 'use server';
 
-import { ApiRes, ApiResPromise } from '@/app/types/api';
-import { PromptType } from '@/app/types/generate';
+import { ApiRes, ApiResPromise } from '@/types/api';
+import { PromptType } from '@/types/generate';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -47,6 +48,9 @@ export async function GeneratePost(
       length,
       tone,
     };
+
+    // revalidatePath('/');
+    // redirect(`/generatePost`);
 
     return { ok: 1, item: result };
   } catch (error) {
