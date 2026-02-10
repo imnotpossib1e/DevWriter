@@ -49,8 +49,8 @@ export async function GeneratePost(
       tone,
     };
 
-    revalidatePath('/');
-    redirect(`/generatePost`);
+    // revalidatePath('/');
+    // redirect(`/generatePost`);
 
     return { ok: 1, item: result };
   } catch (error) {

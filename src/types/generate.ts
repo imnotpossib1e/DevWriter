@@ -7,4 +7,6 @@ export interface PromptType {
   tone: string;
 }
 
-export interface PostType {}
+export interface PostType {
+  post: string;
+}
