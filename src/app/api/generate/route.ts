@@ -7,12 +7,14 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    const { topic, description, template, length, tone } = await request.json();
+    const { topic, description, keywords, template, length, tone } =
+      await request.json();
 
     const systemPrompt = getSystemPrompt(template);
     const userPrompt = `
       주제: ${topic}
       추가 설명: ${description}
+      키워드: ${keywords}
       글 길이: ${length} (${length === 'short' ? '~500자' : length === 'normal' ? '~1000자' : '~2000자'})
       톤 앤 매너: ${tone}
 
@@ -30,9 +32,10 @@ export async function POST(request: NextRequest) {
     });
 
     const content = completion.choices[0].message.content;
-    console.log('결과', content);
-    console.log('🔍 content 타입:', typeof content);
-    console.log('🔍 content 길이:', content?.length);
+    // console.log('프롬프트', userPrompt);
+    // console.log('결과', content);
+    // console.log('🔍 content 타입:', typeof content);
+    // console.log('🔍 content 길이:', content?.length);
     const result = JSON.parse(content || '{}');
 
     return NextResponse.json(result);
@@ -64,7 +67,7 @@ function getSystemPrompt(template: string): string {
 4. 결론: 요약 및 추가 학습 방향
 
 응답은 **오직 JSON만** 반환하세요. 마크다운, 설명, 코드블록 절대 NO.
-응답 형식:
+**응답 형식**:
 {
   "title": "SEO에 최적화된 제목",
   "content": "마크다운 형식의 본문으로 생성",

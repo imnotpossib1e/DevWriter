@@ -1,6 +1,7 @@
 export interface PromptType {
   content: string;
   topic: string;
+  keywords: string;
   description: string;
   template: string;
   length: string;
