@@ -8,5 +8,14 @@ export interface PromptType {
 }
 
 export interface PostType {
-  post: string;
+  title: string;
+  content: string;
+  hashtags: string[];
+  metaDescription: string;
 }
+// interface GeneratedContent {
+//   title: string;
+//   content: string;
+//   hashtags: string[];
+//   metaDescription: string;
+// }
