@@ -27,7 +27,8 @@ export default function GenerateResult({ post, onRegenerate }: Props) {
         </div>
       </div>
       <div className="flex flex-col gap-5 bg-white/10 border border-white/50 rounded-lg p-10">
-        {post.title && <h2 className="font-bold text-xl">{post.title}</h2>}
+        {post.title && <h1 className="font-bold text-3xl">{post.title}</h1>}
+        <hr className="text-white/20 border" />
         {post.content && <MarkdownViewer content={post.content} />}
         <hr className="text-white/20 border" />
         {/* seo */}

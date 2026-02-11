@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Textarea from '@/components/Textarea';
 import { Plus, Sparkles, TriangleAlert, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GenerateResult from '@/app/generator/GenerateResult';
 import { PostType } from '@/types/generate';
 import { FadeLoader } from 'react-spinners';
@@ -17,6 +17,12 @@ export default function GenerateForm() {
   const [error, setError] = useState<string | null>(null);
   const [keywordInput, setKeywordInput] = useState('');
   const [keywords, setKeywords] = useState<Keyword[]>([]);
+
+  const [topic, setTopic] = useState('');
+  const [description, setDescription] = useState('');
+  const [template, setTemplate] = useState('');
+  const [length, setLength] = useState('');
+  const [tone, setTone] = useState('');
 
   const handleKeyword = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -95,8 +101,6 @@ export default function GenerateForm() {
           onClick={() => {
             setError(null);
             setIsLoading(false);
-            setKeywords([]);
-            setKeywordInput('');
           }}
         >
           다시 시도하기
@@ -112,8 +116,6 @@ export default function GenerateForm() {
         onRegenerate={() => {
           setResult(null);
           setError(null);
-          setKeywords([]);
-          setKeywordInput('');
         }}
       />
     );
@@ -148,6 +150,8 @@ export default function GenerateForm() {
           </label>
           <Input
             name="topic"
+            value={topic}
+            onChange={e => setTopic(e.target.value)}
             placeholder="e.g. 'Node.js와 Express로 RESR API 구축하기'"
             required
           />
@@ -161,6 +165,8 @@ export default function GenerateForm() {
           </label>
           <Textarea
             name="description"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
             placeholder="주제에 대한 세부 설명, 강조할 포인트 등을 입력"
           />
         </div>
@@ -224,6 +230,8 @@ export default function GenerateForm() {
             <select
               name="template"
               id="template"
+              value={template}
+              onChange={e => setTemplate(e.target.value)}
               className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
               required
             >
@@ -243,6 +251,8 @@ export default function GenerateForm() {
             <select
               name="length"
               id="length"
+              value={length}
+              onChange={e => setLength(e.target.value)}
               className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
               required
             >
@@ -262,6 +272,8 @@ export default function GenerateForm() {
             <select
               name="tone"
               id="tone"
+              value={tone}
+              onChange={e => setTone(e.target.value)}
               className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
             >
               <option value="">톤 앤 매너 선택</option>
