@@ -3,10 +3,11 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Textarea from '@/components/Textarea';
-import { Plus, Sparkles, X } from 'lucide-react';
+import { Plus, Sparkles, TriangleAlert, X } from 'lucide-react';
 import { useState } from 'react';
 import GenerateResult from '@/app/generator/GenerateResult';
 import { PostType } from '@/types/generate';
+import { FadeLoader } from 'react-spinners';
 
 type Keyword = string;
 
@@ -62,11 +63,16 @@ export default function GenerateForm() {
         }),
       });
 
-      if (!res.ok) throw new Error('생성 실패');
+      // if (!res.ok) throw new Error('생성 실패');
+      if (!res.ok) {
+        const errarData = await res.json();
+        setError(errarData.error || '생성 실패');
+        return;
+      }
 
       const data = await res.json();
 
-      // console.log('API 응답', data);
+      console.log('API 응답', data);
       setResult(data);
     } catch (error) {
       console.error(error);
@@ -77,12 +83,55 @@ export default function GenerateForm() {
     }
   };
 
+  if (error) {
+    return (
+      <div className="flex flex-col items-center gap-8 bg-white/10 border border-white/50 rounded-lg p-10 m-50 text-2xl">
+        <TriangleAlert className="w-20 h-20" />
+        <div className="flex flex-col items-center gap-1">
+          <span>글 생성에 실패했습니다.</span>
+          <span>다시 시도해주세요.</span>
+        </div>
+        <Button
+          onClick={() => {
+            setError(null);
+            setIsLoading(false);
+            setKeywords([]);
+            setKeywordInput('');
+          }}
+        >
+          다시 시도하기
+        </Button>
+      </div>
+    );
+  }
+
   if (result) {
-    return <GenerateResult post={result} />;
+    return (
+      <GenerateResult
+        post={result}
+        onRegenerate={() => {
+          setResult(null);
+          setError(null);
+          setKeywords([]);
+          setKeywordInput('');
+        }}
+      />
+    );
   }
 
   return (
-    <div className="bg-white/10 border border-white/50 rounded-lg p-10">
+    <div className="relative overflow-hidden bg-white/10 border border-white/50 rounded-lg p-10">
+      {isLoading && (
+        <div className="absolute inset-0 backdrop-blur-sm flex items-center justify-center z-10">
+          <div className="absolute w-full h-full bg-black/30 z-11 animate-pulse"></div>
+          <div className="flex flex-col items-center gap-4 animate-none z-12">
+            <FadeLoader color="white" />
+            <span className="text-xl font-bold animate-none">
+              AI가 글을 생성중입니다...
+            </span>
+          </div>
+        </div>
+      )}
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -91,8 +140,11 @@ export default function GenerateForm() {
         className="flex flex-col gap-5"
       >
         <div className="flex flex-col gap-2">
-          <label htmlFor="topic" className="font-bold text-lg">
-            주제
+          <label
+            htmlFor="topic"
+            className="flex items-center font-bold text-lg gap-2"
+          >
+            주제<span className="text-xs text-white/50">(*필수)</span>
           </label>
           <Input
             name="topic"
@@ -101,18 +153,23 @@ export default function GenerateForm() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="description" className="font-bold text-lg">
-            추가 설명
+          <label
+            htmlFor="description"
+            className="flex items-center font-bold text-lg gap-2"
+          >
+            추가 설명<span className="text-xs text-white/50">(선택)</span>
           </label>
           <Textarea
             name="description"
             placeholder="주제에 대한 세부 설명, 강조할 포인트 등을 입력"
-            required
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="keyword" className="font-bold text-lg">
-            키워드 태그
+          <label
+            htmlFor="keyword"
+            className="flex items-center font-bold text-lg gap-2"
+          >
+            키워드 태그<span className="text-xs text-white/50">(*필수)</span>
           </label>
           <div className="flex gap-2.5">
             <Input
@@ -157,7 +214,12 @@ export default function GenerateForm() {
         </div>
         <div className="flex flex-3 gap-8 w-full pb-4">
           <div className="flex flex-col w-full gap-2.5">
-            <label htmlFor="template">템플릿 유형</label>
+            <label
+              htmlFor="template"
+              className="flex items-center font-bold text-lg gap-2"
+            >
+              템플릿 유형<span className="text-xs text-white/50">(*필수)</span>
+            </label>
             <select
               name="template"
               id="template"
@@ -172,7 +234,12 @@ export default function GenerateForm() {
             </select>
           </div>
           <div className="flex flex-col w-full gap-2.5">
-            <label htmlFor="length">길이</label>
+            <label
+              htmlFor="length"
+              className="flex items-center font-bold text-lg gap-2"
+            >
+              길이<span className="text-xs text-white/50">(*필수)</span>
+            </label>
             <select
               name="length"
               id="length"
@@ -180,13 +247,18 @@ export default function GenerateForm() {
               required
             >
               <option value="">길이 선택</option>
-              <option value="short">짧음 (~300)</option>
-              <option value="normal">보통 (~500)</option>
-              <option value="long">길음 (~1000)</option>
+              <option value="short">짧음 (~500)</option>
+              <option value="normal">보통 (~1000)</option>
+              <option value="long">길음 (~2000)</option>
             </select>
           </div>
           <div className="flex flex-col w-full gap-2.5">
-            <label htmlFor="tone">톤 앤 매너</label>
+            <label
+              htmlFor="tone"
+              className="flex items-center font-bold text-lg gap-2"
+            >
+              톤 앤 매너<span className="text-xs text-white/50">(*필수)</span>
+            </label>
             <select
               name="tone"
               id="tone"
@@ -201,7 +273,7 @@ export default function GenerateForm() {
         </div>
         <Button type="submit">
           <Sparkles className="w-5" />
-          {isLoading ? '생성중...' : 'Generate Blog Post'}
+          Generate Post
         </Button>
       </form>
     </div>
