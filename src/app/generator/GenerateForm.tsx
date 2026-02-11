@@ -178,6 +178,7 @@ export default function GenerateForm() {
               value={keywordInput}
               onChange={e => setKeywordInput(e.target.value)}
               onKeyDown={handleKeyword}
+              required={keywords.length === 0}
             />
             <Button
               type="button"
