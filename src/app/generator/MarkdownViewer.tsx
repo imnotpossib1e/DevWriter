@@ -21,7 +21,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
       <ReactMarkdown
         components={{
           p: ({ children }) => (
-            <p className="mb-6 leading-relaxed">{children}</p>
+            <p className="my-6 leading-relaxed">{children}</p>
           ),
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
