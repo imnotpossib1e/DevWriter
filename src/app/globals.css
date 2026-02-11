@@ -101,3 +101,24 @@ body {
   --color-bg-dark-blue: #1e1e1e;
   --color-deep-dark-purple: #283466;
 }
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-size: initial !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+}
+
+.prose h1 {
+  font-size: 1.5rem !important;
+}
+.prose h2 {
+  font-size: 1.25rem !important;
+}
+.prose h3 {
+  font-size: 1rem !important;
+}

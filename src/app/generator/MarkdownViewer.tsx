@@ -7,6 +7,7 @@ import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-jsx';
+import remarkGfm from 'remark-gfm';
 
 interface MarkdownViewerProps {
   content: string;
@@ -17,11 +18,12 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
     Prism.highlightAll();
   }, [content]);
   return (
-    <div className="prose prose-lg max-w-none prose-p:mb-4 prose-headings:mb-2 text-sm">
+    <div className="prose prose-lg max-w-none prose-p:mb-4 prose-headings:mb-2 text-base">
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           p: ({ children }) => (
-            <p className="mb-6 leading-relaxed">{children}</p>
+            <p className="my-6 leading-relaxed">{children}</p>
           ),
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
