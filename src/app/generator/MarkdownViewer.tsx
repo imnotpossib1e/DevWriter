@@ -1,6 +1,6 @@
 'use client';
 
-import { Children, useEffect } from 'react';
+import { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
@@ -23,9 +23,9 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
           p: ({ children }) => (
             <p className="mb-6 leading-relaxed">{children}</p>
           ),
-          code({ node, inline, className, children, ...props }) {
+          code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
-            return !inline && match ? (
+            return match ? (
               <pre className={`language-${match[1]}`}>
                 <code className={`language-${match[1]}`} {...props}>
                   {children}
