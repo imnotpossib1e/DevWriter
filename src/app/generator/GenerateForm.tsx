@@ -231,7 +231,6 @@ export default function GenerateForm() {
               <option value="tutorial">Step-by-Step 튜토리얼</option>
               <option value="til">TIL</option>
               <option value="troubleShooting">트러블 슈팅</option>
-              <option value="projectReview">프로젝트 리뷰</option>
             </select>
           </div>
           <div className="flex flex-col w-full gap-2.5">
@@ -248,8 +247,8 @@ export default function GenerateForm() {
               required
             >
               <option value="">길이 선택</option>
-              <option value="short">짧음 (~500)</option>
-              <option value="normal">보통 (~1000)</option>
+              <option value="short">짧음 (~800)</option>
+              <option value="normal">보통 (~1200)</option>
               <option value="long">길음 (~2000)</option>
             </select>
           </div>
