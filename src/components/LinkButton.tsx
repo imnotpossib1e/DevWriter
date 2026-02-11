@@ -27,10 +27,10 @@ export default function LinkButton({
   ...rest
 }: LinkProps) {
   const baseStyle =
-    'flex flex-wrap gap-3 font-medium text-base rounded-lg content-center transition-all duration-100';
+    'flex flex-wrap gap-3 w-full justify-center font-medium text-base rounded-lg content-center transition-all duration-100';
 
   const variantStyle = {
-    purple: 'bg-purple hover:bg-white  text-white hover:text-purple',
+    purple: 'bg-purple hover:bg-white text-white hover:text-purple',
     white: 'bg-white  text-black hover:bg-dark-purple hover:text-white',
   };
 

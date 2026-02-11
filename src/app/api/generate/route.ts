@@ -7,6 +7,7 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('🚀 /api/generate 호출됨');
     const { topic, description, keywords, template, length, tone } =
       await request.json();
 
@@ -32,10 +33,10 @@ export async function POST(request: NextRequest) {
     });
 
     const content = completion.choices[0].message.content;
-    // console.log('프롬프트', userPrompt);
-    // console.log('결과', content);
-    // console.log('🔍 content 타입:', typeof content);
-    // console.log('🔍 content 길이:', content?.length);
+    console.log('프롬프트', userPrompt);
+    console.log('결과', content);
+    console.log('🔍 content 타입:', typeof content);
+    console.log('🔍 content 길이:', content?.length);
     const result = JSON.parse(content || '{}');
 
     return NextResponse.json(result);
@@ -59,8 +60,11 @@ function getSystemPrompt(template: string): string {
 3. 코드 블록은 적절한 언어 태그를 붙입니다 (\`\`\`javascript 등)
 4. 전문 용어는 쉽게 풀어서 설명합니다
 5. 결론에서 핵심 내용을 요약합니다
+6. 코드 예시 반드시 포함하세요
+7. 글자수는 코드 예시 제외합니다.
+8. 글자수 꼭 지키세요.
 
-[글 구조]
+[글 구조] (섹션명은 **절대** 출력하지 마세요. 코드 예시 반드시 포함하세요)
 1. 제목: SEO에 최적화된 매력적인 제목
 2. 서론: 주제 소개 및 학습 동기 (2-3문단)
 3. 본문: 핵심 내용 설명, 코드 예시 포함 (3-5섹션)
