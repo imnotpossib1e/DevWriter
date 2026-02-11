@@ -17,7 +17,8 @@ export default function Button({
   const variantStyle = {
     purple:
       'bg-purple hover:bg-white disabled:bg-dark-purple text-white hover:text-purple',
-    white: 'bg-white disabled:bg-dark-purple text-black hover:text-purple',
+    white:
+      'bg-white text-black hover:bg-dark-purple text-dark-purple hover:text-white',
   };
 
   const sizeStyle = {

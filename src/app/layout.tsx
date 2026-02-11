@@ -12,7 +12,7 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen bg-linear-to-l from-[#2E1065] via-[#0F172A] to-[#020617]">
         <Header />
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
