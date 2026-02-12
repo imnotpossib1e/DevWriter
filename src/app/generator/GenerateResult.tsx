@@ -46,10 +46,10 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
               </Tag>{' '}
               <Tag>
                 {prompt.length === 'shirt'
-                  ? '짧게'
+                  ? '짧게 (~800자)'
                   : prompt.length === 'normal'
-                    ? '보통'
-                    : '길게'}
+                    ? '보통 (~1200자)'
+                    : '길게 (~2000자)'}
               </Tag>{' '}
               <Tag>
                 {prompt.tone === 'friendly'
