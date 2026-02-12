@@ -15,7 +15,7 @@ export default function Header() {
     pathname.startsWith(path) ? 'nav-active' : '';
 
   return (
-    <header className="flex flex-wrap justify-between items-center w-full bg-bg-dark-blue z-10 px-5.5 h-16 sticky top-0">
+    <header className="flex flex-wrap justify-between items-center w-full bg-bg-dark-blue z-20 px-5.5 h-16 sticky top-0">
       <h1>
         <Link
           href="/"
