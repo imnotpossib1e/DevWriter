@@ -37,21 +37,21 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
               <span>{prompt.topic}</span>
             </div>
             <div className="flex flex-row gap-3 mt-1.5">
-              <Tag>
+              <Tag varient="green">
                 {prompt.template === 'tutorial'
                   ? '튜토리얼'
                   : prompt.template === 'til'
                     ? 'TIL'
                     : '트러블 슈팅'}
               </Tag>{' '}
-              <Tag>
+              <Tag varient="green">
                 {prompt.length === 'shirt'
                   ? '짧게 (~800자)'
                   : prompt.length === 'normal'
                     ? '보통 (~1200자)'
                     : '길게 (~2000자)'}
               </Tag>{' '}
-              <Tag>
+              <Tag varient="green">
                 {prompt.tone === 'friendly'
                   ? '친근한'
                   : prompt.tone === 'professional'

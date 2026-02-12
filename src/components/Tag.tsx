@@ -1,7 +1,7 @@
 'use client';
 
 interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
-  varient?: 'purple' | 'tutorial' | 'til' | 'troubleShooting';
+  varient?: 'purple' | 'green' | 'darkpurple' | 'red';
 }
 
 export default function Tag({
@@ -14,9 +14,9 @@ export default function Tag({
 
   const varientStyle = {
     purple: 'bg-purple/40 border-purple/90',
-    tutorial: 'bg-[#77FFA2]/40 border-[#77FFA2]/90',
-    til: 'bg-[#826FFF]/40 border-[#826FFF]/90',
-    troubleShooting: 'bg-[#FF6363]/40 border-[#FF6363]/90',
+    green: 'bg-[#77FFA2]/30 border-[#77FFA2]/90',
+    darkpurple: 'bg-[#826FFF]/40 border-[#826FFF]/90',
+    red: 'bg-[#FF6363]/40 border-[#FF6363]/90',
   };
 
   return (
