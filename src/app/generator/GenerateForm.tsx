@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import GenerateResult from '@/app/generator/GenerateResult';
 import { PostType } from '@/types/generate';
 import { FadeLoader } from 'react-spinners';
+import Tag from '@/components/Tag';
 
 type Keyword = string;
 
@@ -46,22 +47,23 @@ export default function GenerateForm() {
     setIsLoading(true);
     setError(null);
     try {
-      const topic = (formData.get('topic') as string) || '';
-      const description = (formData.get('description') as string) || '';
-      const keywords = (formData.get('keywords') as string) || '';
-      const template = (formData.get('template') as string) || '';
-      const length = (formData.get('length') as string) || 'normal';
-      const tone = (formData.get('tone') as string) || 'professional';
+      // const topic = (formData.get('topic') as string) || '';
+      // const description = (formData.get('description') as string) || '';
+      // const keywords = (formData.get('keywords') as string) || '';
+      // const template = (formData.get('template') as string) || '';
+      // const length = (formData.get('length') as string) || 'normal';
+      // const tone = (formData.get('tone') as string) || 'professional';
 
       const res = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           topic,
-          keyword: keywords
-            .split(',')
-            .map(k => k.trim())
-            .filter(Boolean),
+          // keyword: keywords
+          //   .split(',')
+          //   .map(k => k.trim())
+          //   .filter(Boolean),
+          keywords,
           description,
           template,
           length,
@@ -113,6 +115,14 @@ export default function GenerateForm() {
     return (
       <GenerateResult
         post={result}
+        prompt={{
+          topic,
+          description,
+          keywords,
+          template,
+          length,
+          tone,
+        }}
         onRegenerate={() => {
           setResult(null);
           setError(null);
@@ -207,15 +217,12 @@ export default function GenerateForm() {
           </div>
           <div className="flex gap-3">
             {keywords.map(tag => (
-              <span
-                key={tag}
-                className="flex justify-center items-center gap-2 w-fit bg-purple/40 border border-purple/90 px-2 py-1 rounded-lg text-sm"
-              >
+              <Tag key={tag}>
                 {tag}
                 <button type="button" onClick={() => handleRemoveKeyword(tag)}>
                   <X className="w-3 text-white" />
                 </button>
-              </span>
+              </Tag>
             ))}
           </div>
         </div>
