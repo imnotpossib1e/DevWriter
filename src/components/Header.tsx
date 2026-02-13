@@ -79,7 +79,7 @@ export default function Header() {
           </li>
           <li>
             <LinkButton
-              href="/"
+              href="/generatePosts"
               target="_self"
               title="DevWriterAI 포스트 목록 이동"
             >

@@ -50,7 +50,7 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
                   ? '튜토리얼'
                   : prompt.template === 'til'
                     ? 'TIL'
-                    : '트러블 슈팅'}
+                    : '트러블슈팅'}
               </Tag>
               <Tag varient="green">
                 {prompt.length === 'shirt'
