@@ -22,7 +22,7 @@ export default function GeneratePostList() {
         >
           <div className="flex flex-col gap-1">
             <div className="flex gap-5">
-              <Link href={`/generator?load=${item.id}`} className="w-full">
+              <Link href={`/generatePosts/${item.id}`} className="w-full">
                 <h3 className="font-bold">{item.post.title}</h3>
               </Link>
               <Tag template={item.prompt.template}>
