@@ -36,7 +36,7 @@ export const useHistoryStore = create<HistoryStore>()(
 
           return {
             // 최대 10개 저장
-            history: [newItem].slice(0, 10),
+            history: [newItem, ...state.history].slice(0, 10),
           };
         }),
 
