@@ -14,16 +14,6 @@ export default function Tag({
   const baseStyle =
     'flex justify-center items-center gap-2 w-fit h-fit border px-2 py-0.5 rounded-lg text-sm';
 
-  // const finalVarient = template
-  //   ? getVarientFormTemplate(template)
-  //   : varient || 'purple';
-
-  template === 'tutorial'
-    ? (varient = 'green')
-    : template === 'til'
-      ? (varient = 'darkpurple')
-      : (varient = 'red');
-
   const varientStyle = {
     purple: 'bg-purple/40 border-purple/90',
     green: 'bg-[#77FFA2]/30 border-[#77FFA2]/90',
@@ -31,8 +21,25 @@ export default function Tag({
     red: 'bg-[#FF6363]/40 border-[#FF6363]/90',
   };
 
+  const getVarientFormTemplate = (template: string): TagProps['varient'] => {
+    switch (template) {
+      case 'tutorial':
+        return 'green';
+      case 'til':
+        return 'darkpurple';
+      case 'troubleShooting':
+        return 'red';
+      default:
+        return 'purple';
+    }
+  };
+
+  const finalVarient = template
+    ? getVarientFormTemplate(template)
+    : (varient ?? 'purple');
+
   return (
-    <span className={`${baseStyle} ${varientStyle[varient]}`} {...rest}>
+    <span className={`${baseStyle} ${varientStyle[finalVarient!]}`} {...rest}>
       {children}
     </span>
   );
