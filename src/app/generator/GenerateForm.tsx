@@ -264,9 +264,9 @@ export default function GenerateForm() {
               required
             >
               <option value="">길이 선택</option>
-              <option value="short">짧음 (~800)</option>
-              <option value="normal">보통 (~1200)</option>
-              <option value="long">길음 (~2000)</option>
+              <option value="short">짧게 (~800자)</option>
+              <option value="normal">보통 (~1200자)</option>
+              <option value="long">길게 (~2000자)</option>
             </select>
           </div>
           <div className="flex flex-col w-full gap-2.5">

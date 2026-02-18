@@ -122,3 +122,9 @@ body {
 .prose h3 {
   font-size: 1rem !important;
 }
+
+.w-md-editor textarea {
+  -webkit-text-fill-color: #fff !important;
+  height: 100% !important;
+  min-height: 1000px !important;
+}

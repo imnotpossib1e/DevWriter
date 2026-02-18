@@ -1,19 +1,55 @@
-// export default function GeneratePostList() {
-//   return (
-//     <div>
-//       {generateState?.ok && generateState.item.content && (
-//         <div className="mt-8 p-6 bg-gray-50 rounded-lg text-black">
-//           <h2 className="text-2xl font-bold mb-4">📝 생성된 글</h2>
-//           <div className="prose max-w-none">{generateState.item.content}</div>
-//         </div>
-//       )}
+'use client';
 
-//       {/* ✅ 에러 표시 */}
-//       {generateState?.ok === 0 && (
-//         <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-//           {generateState.message}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
+import Button from '@/components/Button';
+import Tag from '@/components/Tag';
+import { useHistoryStore } from '@/zustand/useHistoryStore';
+import { Trash2 } from 'lucide-react';
+import Link from 'next/link';
+
+export default function GeneratePostList() {
+  const { history, removeHistory } = useHistoryStore();
+
+  if (history.length === 0) {
+    return <div>저장된 포스트가 없습니다.</div>;
+  }
+
+  return (
+    <div className="grid grid-cols-2 gap-7">
+      {history.map(item => (
+        <div
+          key={item.id}
+          className="flex flex-col justify-between bg-white/10 border border-white/50 p-7 rounded-lg"
+        >
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-5">
+              <Link href={`/generatePosts/${item.id}`} className="w-full">
+                <h3 className="font-bold">{item.post.title}</h3>
+              </Link>
+              <Tag template={item.prompt.template}>
+                {item.prompt.template === 'tutorial'
+                  ? '튜토리얼'
+                  : item.prompt.template === 'til'
+                    ? 'TIL'
+                    : '트러블슈팅'}
+              </Tag>
+            </div>
+            <p className="text-sm text-gray-500">
+              {new Date(item.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+          <div className="flex gap-2 mt-2 items-center">
+            <span className="w-full text-sm text-white/90">
+              {item.prompt.topic}
+            </span>
+            <button
+              onClick={() => removeHistory(item.id)}
+              className="text-white/70 hover:cursor-pointer"
+            >
+              <Trash2 />
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

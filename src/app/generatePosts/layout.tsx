@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft, NotebookText, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default function RootLayout({
@@ -16,11 +16,13 @@ export default function RootLayout({
       </Link>
       <div className="flex flex-wrap gap-4 items-center">
         <div className="flex justify-center items-center h-12.5 w-12.5 rounded-lg bg-[#252159]">
-          <Sparkles className="text-purple  " />
+          <NotebookText className="text-purple" />
         </div>
         <div className="flex flex-col font-bold">
-          <h2 className="text-2xl">Blog Generator</h2>
-          <span className="text-gray-400">결과는?</span>
+          <h2 className="text-2xl">Generate History</h2>
+          <span className="text-gray-400">
+            최근에 저장한 포스트를 10개까지 확인할 수 있습니다.
+          </span>
         </div>
       </div>
       {children}
