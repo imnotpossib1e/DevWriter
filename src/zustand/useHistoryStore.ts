@@ -12,6 +12,7 @@ interface HistoryItem {
 interface HistoryStore {
   history: HistoryItem[];
   addHistory: (post: PostType, prompt: PromptType) => void;
+  updateHistoryPost: (id: string, post: PostType) => void;
   removeHistory: (id: string) => void;
   clearHistory: () => void;
 }
@@ -39,6 +40,13 @@ export const useHistoryStore = create<HistoryStore>()(
             history: [newItem, ...state.history].slice(0, 10),
           };
         }),
+
+      updateHistoryPost: (id, updatedPost) =>
+        set(state => ({
+          history: state.history.map(item =>
+            item.id === id ? { ...item, post: updatedPost } : item,
+          ),
+        })),
 
       removeHistory: id =>
         set(state => ({
