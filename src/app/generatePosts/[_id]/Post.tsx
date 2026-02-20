@@ -5,14 +5,62 @@ import Button from '@/components/Button';
 import Tag from '@/components/Tag';
 
 import { useHistoryStore } from '@/zustand/useHistoryStore';
-import MDEditor, { fullscreen } from '@uiw/react-md-editor';
-import { Download, PencilLine, PencilOff } from 'lucide-react';
+import MDEditor from '@uiw/react-md-editor';
+import {
+  Calendar,
+  Copy,
+  Dot,
+  Download,
+  FileText,
+  PencilLine,
+  PencilOff,
+  Save,
+} from 'lucide-react';
+import { marked } from 'marked';
 import { useEffect, useState } from 'react';
 
 export default function PostContent({ postId }: { postId: string }) {
   const history = useHistoryStore(state =>
     state.history.find(item => item.id === postId),
   );
+
+  const [loading, setLoading] = useState(false);
+
+  const downloadMarkdown = (markdown: string, filename: string) => {
+    const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
+    downloadFile(blob, filename);
+  };
+
+  const downloadHTML = (markdown: string, filename: string) => {
+    marked.setOptions({ breaks: true });
+    const html = marked.parse(markdown);
+    const fullHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>포스트</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.7;}</style></head><body>${html}</body></html>`;
+    const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
+    downloadFile(blob, filename);
+  };
+
+  const downloadFile = async (blob: Blob, filename: string) => {
+    setLoading(true);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    setLoading(false);
+  };
+
+  const handleCopy = async (post: string) => {
+    try {
+      await navigator.clipboard.writeText(post);
+      alert('복사되었습니다.');
+    } catch (error) {
+      console.error('복사에 실패했습니다.', error);
+      alert('복사에 실패했습니다');
+    }
+  };
 
   const updateHistoryPost = useHistoryStore(state => state.updateHistoryPost);
   const [editContent, setEditContent] = useState('');
@@ -37,23 +85,79 @@ export default function PostContent({ postId }: { postId: string }) {
   }
 
   return (
-    <div>
-      {/* <div className="flex gap-4">
-        <Button
-          size="sm"
-          variant="white"
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? <PencilOff /> : <PencilLine />}
-        </Button>
-        {isEditing && (
-          <Button size="sm" onClick={handleUpdate}>
-            <Download />
-          </Button>
-        )}
-      </div> */}
+    <div className="flex flex-col gap-5">
+      <div className="flex justify-between items-end gap-4">
+        <div className="flex flex-col gap-3">
+          <p className="text-2xl font-bold">{history.prompt.topic}</p>
+          <div className="flex gap-6 items-end">
+            <div className="flex gap-1 font-light text-white/60">
+              <span className="flex gap-2">
+                <Calendar className="w-5 h-5" />
+                {new Date(history.createdAt).toLocaleDateString('ko-KR')}
+              </span>
+              <Dot />
+              <span className="flex gap-2">
+                <FileText className="w-5 h-5" />
+                {history.post.content.length} words
+              </span>
+            </div>
+            <div className="flex gap-4">
+              <Tag template={history.prompt.template}>
+                {history.prompt.template === 'tutorial'
+                  ? '튜토리얼'
+                  : history.prompt.template === 'til'
+                    ? 'TIL'
+                    : '트러블슈팅'}
+              </Tag>
+              <Tag>
+                {history.prompt.tone === 'friendly'
+                  ? '친근한'
+                  : history.prompt.tone === 'professional'
+                    ? '전문적'
+                    : '캐주얼'}
+              </Tag>
+            </div>
+          </div>
+        </div>
+        <div>
+          {!isEditing && (
+            <div className="flex gap-4 justify-end">
+              <Button
+                size="base"
+                onClick={() =>
+                  downloadMarkdown(
+                    history.post.content || '',
+                    `${history.post.title}.md`,
+                  )
+                }
+              >
+                <Download className="w-5 h-5" />
+                Markdown
+              </Button>
+              <Button
+                size="base"
+                onClick={() =>
+                  downloadHTML(
+                    history.post.content || '',
+                    `${history.post.title}.html`,
+                  )
+                }
+              >
+                <Download className="w-5 h-5" />
+                HTML
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => handleCopy(history.post.content)}
+              >
+                <Copy className="w-5 h-5" />
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
       <div className="flex flex-col gap-5 bg-white/10 border border-white/50 rounded-lg p-10">
-        <div className="flex justify-between gap-3 items-start">
+        <div className="flex justify-between gap-3 items-end">
           {history?.post.title && (
             <h1 className="font-bold text-3xl">{history?.post.title}</h1>
           )}
@@ -63,11 +167,15 @@ export default function PostContent({ postId }: { postId: string }) {
               variant="white"
               onClick={() => setIsEditing(!isEditing)}
             >
-              {isEditing ? <PencilOff /> : <PencilLine />}
+              {isEditing ? (
+                <PencilOff className="w-5 h-5" />
+              ) : (
+                <PencilLine className="w-5 h-5" />
+              )}
             </Button>
             {isEditing && (
               <Button size="sm" onClick={handleUpdate}>
-                <Download />
+                <Save className="w-5 h-5" />
               </Button>
             )}
           </div>

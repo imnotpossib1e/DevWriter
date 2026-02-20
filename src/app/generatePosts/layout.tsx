@@ -2,12 +2,21 @@
 
 import { ArrowLeft, NotebookText, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  if (
+    pathname?.includes('generatePosts/') &&
+    pathname.split('/').length === 3
+  ) {
+    return <>{children}</>;
+  }
   return (
     <div className="flex flex-col mx-auto w-5xl pt-15 gap-6">
       <Link href="/" className="flex flex-wrap gap-4 font-bold text-gray-400">

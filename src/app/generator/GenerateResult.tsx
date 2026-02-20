@@ -2,11 +2,10 @@
 
 import MarkdownViewer from '@/app/generator/MarkdownViewer';
 import Button from '@/components/Button';
-import LinkButton from '@/components/LinkButton';
 import Tag from '@/components/Tag';
 import { PostType, PromptType } from '@/types/generate';
 import { useHistoryStore } from '@/zustand/useHistoryStore';
-import { CircleCheckBig, Download, Sparkles } from 'lucide-react';
+import { CircleCheckBig, Save, Sparkles } from 'lucide-react';
 
 interface Props {
   post: PostType;
@@ -84,7 +83,7 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
       </div>
       <div className="flex gap-5">
         <Button onClick={handleSave}>
-          <Download />
+          <Save />
           Save Post
         </Button>
         <Button onClick={onRegenerate} variant="white" size="lg">
