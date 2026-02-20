@@ -17,8 +17,13 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
   const addHistory = useHistoryStore(state => state.addHistory);
 
   const handleSave = () => {
-    addHistory(post, prompt);
-    console.log('저장');
+    try {
+      addHistory(post, prompt);
+      alert('저장되었습니다.');
+    } catch (error) {
+      console.error('저장에 실패했습니다.', error);
+      alert('저장에 실패했습니다.');
+    }
   };
 
   // console.log('생성된 포스트', post);
@@ -52,7 +57,7 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
                     : '트러블슈팅'}
               </Tag>
               <Tag varient="green">
-                {prompt.length === 'shirt'
+                {prompt.length === 'short'
                   ? '짧게 (~800자)'
                   : prompt.length === 'normal'
                     ? '보통 (~1200자)'

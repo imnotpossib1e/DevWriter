@@ -2,7 +2,7 @@
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'purple' | 'white';
-  size?: 'sm' | 'md' | 'lg' | 'base';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'base';
 }
 
 export default function Button({
@@ -22,6 +22,7 @@ export default function Button({
   };
 
   const sizeStyle = {
+    xs: 'w-fit py-2 px-3',
     sm: 'w-fit p-4',
     base: 'w-fit py-3.5 px-5',
     md: 'w-full px-7.5 py-3.5',

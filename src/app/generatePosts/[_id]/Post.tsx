@@ -157,25 +157,34 @@ export default function PostContent({ postId }: { postId: string }) {
         </div>
       </div>
       <div className="flex flex-col gap-5 bg-white/10 border border-white/50 rounded-lg p-10">
-        <div className="flex justify-between gap-3 items-end">
+        <div className="flex justify-between gap-10 items-start">
           {history?.post.title && (
             <h1 className="font-bold text-3xl">{history?.post.title}</h1>
           )}
           <div className="flex gap-4">
             <Button
-              size="sm"
+              size="xs"
               variant="white"
               onClick={() => setIsEditing(!isEditing)}
             >
               {isEditing ? (
-                <PencilOff className="w-5 h-5" />
+                <span className="flex gap-2 items-center text-sm">
+                  <PencilOff className="w-4 h-4" />
+                  Cancel
+                </span>
               ) : (
-                <PencilLine className="w-5 h-5" />
+                <span className="flex gap-2 items-center text-sm">
+                  <PencilLine className="w-4 h-4" />
+                  Edit
+                </span>
               )}
             </Button>
             {isEditing && (
-              <Button size="sm" onClick={handleUpdate}>
-                <Save className="w-5 h-5" />
+              <Button size="xs" onClick={handleUpdate}>
+                <span className="flex gap-2 items-center text-sm">
+                  <Save className="w-4 h-4" />
+                  Save
+                </span>
               </Button>
             )}
           </div>
