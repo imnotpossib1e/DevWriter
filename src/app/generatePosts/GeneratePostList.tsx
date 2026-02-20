@@ -34,7 +34,7 @@ export default function GeneratePostList() {
               </Tag>
             </div>
             <p className="text-sm text-gray-500">
-              {new Date(item.createdAt).toLocaleDateString()}
+              {new Date(item.createdAt).toLocaleDateString('ko-KR')}
             </p>
           </div>
           <div className="flex gap-2 mt-2 items-center">
@@ -43,9 +43,9 @@ export default function GeneratePostList() {
             </span>
             <button
               onClick={() => removeHistory(item.id)}
-              className="text-white/70 hover:cursor-pointer"
+              className="text-white/60 hover:cursor-pointer"
             >
-              <Trash2 />
+              <Trash2 className="hover:text-white" />
             </button>
           </div>
         </div>
