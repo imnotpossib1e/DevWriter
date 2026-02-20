@@ -17,7 +17,7 @@ export default function Home() {
           Start Generating
           <PencilLine className="w-5" />
         </LinkButton>
-        <LinkButton href="/" variant="white" size="lg">
+        <LinkButton href="/generatePosts" variant="white" size="lg">
           View Posts
         </LinkButton>
       </div>
