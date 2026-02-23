@@ -38,8 +38,14 @@ export async function POST(request: NextRequest) {
     console.log('🔍 content 타입:', typeof content);
     console.log('🔍 content 길이:', content?.length);
     const result = JSON.parse(content || '{}');
+    const resultBody = {
+      ...result,
+      id: Date.now().toString(),
+      createdAt: Date.now(),
+    };
 
-    return NextResponse.json(result);
+    // return NextResponse.json(result);
+    return NextResponse.json(resultBody);
   } catch (error) {
     return NextResponse.json(
       { error: '글 생성에 실패했습니다.' },

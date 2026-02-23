@@ -17,6 +17,15 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
   const addHistory = useHistoryStore(state => state.addHistory);
 
   const handleSave = () => {
+    const exists = useHistoryStore
+      .getState()
+      .history.some(item => item.id === post.id);
+
+    if (exists) {
+      alert('이미 저장된 포스트입니다.');
+      return;
+    }
+
     try {
       addHistory(post, prompt);
       alert('저장되었습니다.');

@@ -25,10 +25,10 @@ export const useHistoryStore = create<HistoryStore>()(
       addHistory: (post, prompt) =>
         set(state => {
           const newItem: HistoryItem = {
-            id: Date.now().toString(),
+            id: post.id,
             post,
             prompt,
-            createdAt: Date.now(),
+            createdAt: post.createdAt,
           };
 
           // 중복 저장 방지

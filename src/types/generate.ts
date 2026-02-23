@@ -8,6 +8,8 @@ export interface PromptType {
 }
 
 export interface PostType {
+  id: string;
+  createdAt: number;
   title: string;
   content: string;
   hashtags: string[];
