@@ -1,5 +1,6 @@
 'use client';
 
+import EmptyPost from '@/app/generatePosts/EmptyPost';
 import Button from '@/components/Button';
 import Tag from '@/components/Tag';
 import { useHistoryStore } from '@/zustand/useHistoryStore';
@@ -10,7 +11,7 @@ export default function GeneratePostList() {
   const { history, removeHistory } = useHistoryStore();
 
   if (history.length === 0) {
-    return <div>저장된 포스트가 없습니다.</div>;
+    return <EmptyPost />;
   }
 
   return (

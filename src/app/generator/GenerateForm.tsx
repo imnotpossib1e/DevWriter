@@ -207,7 +207,7 @@ export default function GenerateForm() {
                 setKeywordInput('');
               }}
             >
-              <Plus />
+              <Plus className="w-5 h-4" strokeWidth={3} />
             </Button>
             <input
               type="hidden"
