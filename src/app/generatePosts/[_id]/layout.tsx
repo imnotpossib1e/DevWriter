@@ -10,12 +10,12 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <div className="flex flex-col mx-auto w-5xl pt-15 gap-6">
+      <div className="flex flex-col min-h-screen h-full lg:w-5xl w-full lg:mx-auto md:pt-15 pt-10  md:px-10 px-5 gap-6">
         <Link
           href="/generatePosts"
-          className="flex flex-wrap gap-4 font-bold text-gray-400"
+          className="flex flex-nowrap items-center md:gap-4 gap-2 font-bold md:text-base text-sm text-gray-400"
         >
-          <ArrowLeft className="w-5" />
+          <ArrowLeft className="md:w-5 md:h-5 w-4 h-4" />
           Back to Posts
         </Link>
         {children}

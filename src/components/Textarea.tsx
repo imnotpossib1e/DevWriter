@@ -26,7 +26,7 @@ export default function Textarea({
   return (
     <textarea
       ref={ref}
-      className={`w-full min-h-25 h-auto py-3 pl-4 border border-white/50 bg-white/10 rounded-lg resize-none overflow-hidden`}
+      className={`w-full min-h-25 h-auto md:py-3 py-2 md:pl-4 pl-3 border border-white/50 bg-white/10 text-sm md:text-base rounded-lg resize-none overflow-hidden`}
       onChange={autoResize}
       {...rest}
     />

@@ -2,6 +2,7 @@
 
 import MarkdownContent from '@/app/generatePosts/[_id]/MarkDownContent';
 import Button from '@/components/Button';
+import LinkButton from '@/components/LinkButton';
 import Tag from '@/components/Tag';
 
 import { useHistoryStore } from '@/zustand/useHistoryStore';
@@ -15,6 +16,7 @@ import {
   PencilLine,
   PencilOff,
   Save,
+  TextSelect,
 } from 'lucide-react';
 import { marked } from 'marked';
 import { useEffect, useState } from 'react';
@@ -81,27 +83,37 @@ export default function PostContent({ postId }: { postId: string }) {
   };
 
   if (!history) {
-    return <div>포스트를 찾을 수 없습니다.</div>;
+    return (
+      <div className="h-full flex flex-col justify-center items-center gap-6 my-auto ">
+        <TextSelect className="w-30 h-30" strokeWidth={2} />
+        <span className="flex flex-col items-center text-xl font-semibold text-center">
+          해당 포스트를 찾을 수 없습니다
+        </span>
+        <LinkButton href="/generatePosts" size="lg">
+          목록으로 돌아가기
+        </LinkButton>
+      </div>
+    );
   }
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex justify-between items-end gap-4">
-        <div className="flex flex-col gap-3">
+      <div className="flex md:flex-row flex-col justify-between md:items-end gap-4">
+        <div className="flex flex-col gap-3 items-start">
           <p className="text-2xl font-bold">{history.prompt.topic}</p>
-          <div className="flex gap-6 items-end">
-            <div className="flex gap-1 font-light text-white/60">
+          <div className="flex w-full md:gap-6 md:items-end justify-between">
+            <div className="flex md:gap-1 items-center gap-0 md:text-base text-sm font-light text-white/60">
               <span className="flex gap-2">
-                <Calendar className="w-5 h-5" />
+                <Calendar className="md:w-5 md:h-5 w-4 h-4" />
                 {new Date(history.createdAt).toLocaleDateString('ko-KR')}
               </span>
               <Dot />
               <span className="flex gap-2">
-                <FileText className="w-5 h-5" />
+                <FileText className="md:w-5 md:h-5 w-4 h-4" />
                 {history.post.content.length} words
               </span>
             </div>
-            <div className="flex gap-4">
+            <div className="flex md:gap-4 gap-2">
               <Tag template={history.prompt.template}>
                 {history.prompt.template === 'tutorial'
                   ? '튜토리얼'
@@ -131,7 +143,7 @@ export default function PostContent({ postId }: { postId: string }) {
                   )
                 }
               >
-                <Download className="w-5 h-5" />
+                <Download className="md:w-5 md:h-5 w-4 h-4" />
                 Markdown
               </Button>
               <Button
@@ -143,23 +155,23 @@ export default function PostContent({ postId }: { postId: string }) {
                   )
                 }
               >
-                <Download className="w-5 h-5" />
+                <Download className="md:w-5 md:h-5 w-4 h-4" />
                 HTML
               </Button>
               <Button
-                size="sm"
+                size="sm2"
                 onClick={() => handleCopy(history.post.content)}
               >
-                <Copy className="w-5 h-5" />
+                <Copy className="md:w-5 md:h-5 w-4 h-4" />
               </Button>
             </div>
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-5 bg-white/10 border border-white/50 rounded-lg p-10">
-        <div className="flex justify-between gap-10 items-start">
+      <div className="flex flex-col w-full md:gap-6 gap-4 bg-white/10 border border-white/50 rounded-lg md:p-10 p-5">
+        <div className="flex md:flex-row flex-col w-full md:justify-between md:gap-8 gap-4 md:items-start items-end">
           {history?.post.title && (
-            <h1 className="font-bold text-3xl">{history?.post.title}</h1>
+            <h1 className="font-bold text-2xl">{history?.post.title}</h1>
           )}
           <div className="flex gap-4">
             <Button
@@ -197,9 +209,8 @@ export default function PostContent({ postId }: { postId: string }) {
               onChange={value => value && setEditContent(value)}
               highlightEnable={false}
               height="100%"
-              // autoFocus={false}
               hideToolbar
-              // minHeight={1000}
+              preview="edit"
             />
           </div>
         ) : (
