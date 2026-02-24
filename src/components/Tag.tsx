@@ -12,7 +12,7 @@ export default function Tag({
   ...rest
 }: TagProps) {
   const baseStyle =
-    'flex justify-center items-center gap-2 w-fit h-fit border px-2 py-0.5 rounded-lg text-sm';
+    'flex flex-nowrap justify-center items-center gap-2 w-fit h-fit border px-2 py-0.5 rounded-lg md:text-sm text-xs';
 
   const varientStyle = {
     purple: 'bg-purple/40 border-purple/90',
