@@ -2,6 +2,7 @@
 
 import MarkdownContent from '@/app/generatePosts/[_id]/MarkDownContent';
 import Button from '@/components/Button';
+import LinkButton from '@/components/LinkButton';
 import Tag from '@/components/Tag';
 
 import { useHistoryStore } from '@/zustand/useHistoryStore';
@@ -15,6 +16,7 @@ import {
   PencilLine,
   PencilOff,
   Save,
+  TextSelect,
 } from 'lucide-react';
 import { marked } from 'marked';
 import { useEffect, useState } from 'react';
@@ -81,7 +83,17 @@ export default function PostContent({ postId }: { postId: string }) {
   };
 
   if (!history) {
-    return <div>포스트를 찾을 수 없습니다.</div>;
+    return (
+      <div className="h-full flex flex-col justify-center items-center gap-6 my-auto ">
+        <TextSelect className="w-30 h-30" strokeWidth={2} />
+        <span className="flex flex-col items-center text-xl font-semibold text-center">
+          해당 포스트를 찾을 수 없습니다
+        </span>
+        <LinkButton href="/generatePosts" size="lg">
+          목록으로 돌아가기
+        </LinkButton>
+      </div>
+    );
   }
 
   return (
