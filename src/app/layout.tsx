@@ -9,7 +9,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="flex flex-col min-h-screen bg-linear-to-l from-[#2E1065] via-[#0F172A] to-[#020617]">
+      <body className="flex flex-col h-full min-h-screen bg-linear-to-l from-[#2E1065] via-[#0F172A] to-[#020617]">
         <Header />
         {children}
         <Footer />

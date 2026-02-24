@@ -18,13 +18,11 @@ export default function MarkdownContent({ content }: MarkdownViewerProps) {
     Prism.highlightAll();
   }, [content]);
   return (
-    <div className="prose prose-lg max-w-none prose-p:mb-4 prose-headings:mb-2 text-base">
+    <div className="flex flex-col md:gap-4 gap-3 prose prose-lg max-w-none prose-p:mb-4 prose-headings:mb-2 md:text-base text-sm w-full">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          p: ({ children }) => (
-            <p className="my-6 leading-relaxed">{children}</p>
-          ),
+          p: ({ children }) => <p className="leading-relaxed">{children}</p>,
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
             return match ? (

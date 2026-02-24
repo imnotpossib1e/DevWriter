@@ -10,7 +10,7 @@ interface GeneratePostProps {
 export default async function GeneratePost({ params }: GeneratePostProps) {
   const _id = (await params)._id;
   return (
-    <main className="min-h-screen flex-1 flex flex-col">
+    <main className="flex-1 flex flex-col">
       <PostContent postId={_id} />
     </main>
   );

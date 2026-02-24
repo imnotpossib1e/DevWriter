@@ -10,23 +10,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col mx-auto w-5xl pt-15 gap-6">
-      <Link href="/" className="flex flex-wrap gap-4 font-bold text-gray-400">
-        <ArrowLeft className="w-5" />
+    <div className="flex flex-col min-h-screen h-full lg:w-5xl w-full lg:mx-auto md:pt-15 pt-10 md:px-10 px-5 gap-6">
+      <Link
+        href="/"
+        className="flex flex-nowrap items-center md:gap-4 gap-2 font-bold md:text-base text-sm text-gray-400"
+      >
+        <ArrowLeft className="md:w-5 md:h-5 w-4 h-4" />
         Back to Home
       </Link>
-      <div className="flex flex-wrap gap-4 items-center">
-        <div className="flex justify-center items-center h-12.5 w-12.5 rounded-lg bg-[#252159]">
-          <Sparkles className="text-purple  " />
+      <div className="flex flex-nowrap gap-4 items-center">
+        <div className="flex justify-center items-center md:h-12.5 md:w-12.5 h-10 w-10 rounded-lg bg-[#252159]">
+          <Sparkles className="text-purple md:w-5 md:h-5 w-4 h-4" />
         </div>
         <div className="flex flex-col font-bold">
-          <h2 className="text-2xl">Blog Generator</h2>
-          <span className="text-gray-400">
+          <h2 className="md:text-2xl text-lg">Blog Generator</h2>
+          <span className="text-gray-400 md:text-base text-sm">
             Create technical content in seconds
           </span>
         </div>
       </div>
-
       {children}
     </div>
   );

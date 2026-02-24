@@ -132,7 +132,7 @@ export default function GenerateForm() {
   }
 
   return (
-    <div className="relative overflow-hidden bg-white/10 border border-white/50 rounded-lg p-10">
+    <div className="relative overflow-hidden bg-white/10 border border-white/50 rounded-lg md:p-10 p-5">
       {isLoading && (
         <div className="absolute inset-0 backdrop-blur-sm flex items-center justify-center z-10">
           <div className="absolute w-full h-full bg-black/30 z-11 animate-pulse"></div>
@@ -149,12 +149,12 @@ export default function GenerateForm() {
           e.preventDefault();
           handleGenerate(new FormData(e.currentTarget));
         }}
-        className="flex flex-col gap-5"
+        className="flex flex-col md:gap-5 gap-4"
       >
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col md:gap-2 gap-1">
           <label
             htmlFor="topic"
-            className="flex items-center font-bold text-lg gap-2"
+            className="flex items-center font-bold md:text-lg text-base gap-2"
           >
             주제<span className="text-xs text-white/50">(*필수)</span>
           </label>
@@ -166,10 +166,10 @@ export default function GenerateForm() {
             required
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col md:gap-2 gap-1">
           <label
             htmlFor="description"
-            className="flex items-center font-bold text-lg gap-2"
+            className="flex items-center font-bold md:text-lg text-base gap-2"
           >
             추가 설명<span className="text-xs text-white/50">(선택)</span>
           </label>
@@ -180,14 +180,14 @@ export default function GenerateForm() {
             placeholder="주제에 대한 세부 설명, 강조할 포인트 등을 입력"
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col md:gap-2 gap-1.5">
           <label
             htmlFor="keyword"
-            className="flex items-center font-bold text-lg gap-2"
+            className="flex items-center font-bold md:text-lg text-base gap-2"
           >
             키워드 태그<span className="text-xs text-white/50">(*필수)</span>
           </label>
-          <div className="flex gap-2.5">
+          <div className="flex gap-2.5 h-fit">
             <Input
               name="keyword"
               placeholder="키워드를 입력하고 엔터를 누르세요"
@@ -207,7 +207,7 @@ export default function GenerateForm() {
                 setKeywordInput('');
               }}
             >
-              <Plus />
+              <Plus className="md:w-5 w-5.5 h-4" strokeWidth={2} />
             </Button>
             <input
               type="hidden"
@@ -215,22 +215,22 @@ export default function GenerateForm() {
               value={JSON.stringify(keywords)}
             />
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap md:gap-3 gap-2">
             {keywords.map(tag => (
               <Tag key={tag}>
                 {tag}
                 <button type="button" onClick={() => handleRemoveKeyword(tag)}>
-                  <X className="w-3 text-white" />
+                  <X className="w-3 h-3 text-white" />
                 </button>
               </Tag>
             ))}
           </div>
         </div>
-        <div className="flex flex-3 gap-8 w-full pb-4">
-          <div className="flex flex-col w-full gap-2.5">
+        <div className="flex md:flex-row flex-col md:gap-8 gap-4 w-full pb-4 h-fit overflow-visible">
+          <div className="flex flex-col w-full md:gap-2.5 gap-1">
             <label
               htmlFor="template"
-              className="flex items-center font-bold text-lg gap-2"
+              className="flex items-center font-bold md:text-lg text-base gap-2"
             >
               템플릿 유형<span className="text-xs text-white/50">(*필수)</span>
             </label>
@@ -239,7 +239,7 @@ export default function GenerateForm() {
               id="template"
               value={template}
               onChange={e => setTemplate(e.target.value)}
-              className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
+              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 pr-20 md:text-base text-sm"
               required
             >
               <option value="">템플릿 선택</option>
@@ -248,10 +248,10 @@ export default function GenerateForm() {
               <option value="troubleShooting">트러블 슈팅</option>
             </select>
           </div>
-          <div className="flex flex-col w-full gap-2.5">
+          <div className="flex flex-col w-full md:gap-2.5 gap-1">
             <label
               htmlFor="length"
-              className="flex items-center font-bold text-lg gap-2"
+              className="flex items-center font-bold md:text-lg text-base gap-2"
             >
               길이<span className="text-xs text-white/50">(*필수)</span>
             </label>
@@ -260,7 +260,7 @@ export default function GenerateForm() {
               id="length"
               value={length}
               onChange={e => setLength(e.target.value)}
-              className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
+              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
               required
             >
               <option value="">길이 선택</option>
@@ -269,10 +269,10 @@ export default function GenerateForm() {
               <option value="long">길게 (~2000자)</option>
             </select>
           </div>
-          <div className="flex flex-col w-full gap-2.5">
+          <div className="flex flex-col w-full md:gap-2.5 gap-1">
             <label
               htmlFor="tone"
-              className="flex items-center font-bold text-lg gap-2"
+              className="flex items-center font-bold md:text-lg text-base gap-2"
             >
               톤 앤 매너<span className="text-xs text-white/50">(*필수)</span>
             </label>
@@ -281,7 +281,7 @@ export default function GenerateForm() {
               id="tone"
               value={tone}
               onChange={e => setTone(e.target.value)}
-              className="bg-white/10 border border-white/50 rounded-lg py-3 px-4"
+              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
             >
               <option value="">톤 앤 매너 선택</option>
               <option value="friendly">친근한</option>
@@ -291,7 +291,7 @@ export default function GenerateForm() {
           </div>
         </div>
         <Button type="submit">
-          <Sparkles className="w-5" />
+          <Sparkles className="md:w-5 md:h-5 w-4 h-4" />
           Generate Post
         </Button>
       </form>
