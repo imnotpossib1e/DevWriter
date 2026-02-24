@@ -15,20 +15,19 @@ export default function Header() {
     pathname.startsWith(path) ? 'nav-active' : '';
 
   return (
-    <header className="flex flex-wrap justify-between items-center w-full bg-bg-dark-blue z-20 px-5.5 h-16 sticky top-0">
+    <header className="flex flex-nowrap justify-between items-center w-full bg-bg-dark-blue z-20 px-5.5 py-3 sticky top-0">
       <h1>
         <Link
           href="/"
           target="_self"
           title="홈 바로 가기"
-          className="flex flex-wrap gap-2.5 font-extrabold text-2xl"
+          className="flex flex-wrap gap-2.5 lg:font-extrabold md:text-2xl font-bold text-lg"
         >
           <svg
-            width="36"
-            height="36"
             viewBox="0 0 36 36"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="md:w-9 md:h-9 w-7 h-7"
           >
             <rect width="36" height="36" rx="10" fill="#873FE3" />
             <path
@@ -59,11 +58,11 @@ export default function Header() {
           </span>
         </Link>
       </h1>
-      <nav>
+      <nav className="hidden md:block">
         <ul className="flex gap-5.5">
           <li>
             <LinkButton href="/" target="_self" title="DevWriterAI 페이지 이동">
-              <CodeXml className="w-5" />
+              <CodeXml className="lg:w-5 lg:h-5 w-4 h-4" />
               Home
             </LinkButton>
           </li>
@@ -73,7 +72,7 @@ export default function Header() {
               target="_self"
               title="DevWriterAI 생성 페이지 이동"
             >
-              <Sparkles className="w-5" />
+              <Sparkles className="lg:w-5 lg:h-5 w-4 h-4" />
               Generate
             </LinkButton>
           </li>
@@ -83,7 +82,7 @@ export default function Header() {
               target="_self"
               title="DevWriterAI 포스트 목록 이동"
             >
-              <NotebookText className="w-5" />
+              <NotebookText className="lg:w-5 lg:h-5 w-4 h-4" />
               Posts
             </LinkButton>
           </li>
