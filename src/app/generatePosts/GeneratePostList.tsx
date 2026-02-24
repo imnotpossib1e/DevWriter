@@ -10,6 +10,12 @@ import Link from 'next/link';
 export default function GeneratePostList() {
   const { history, removeHistory } = useHistoryStore();
 
+  const handleRemove = (id: string) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      removeHistory(id);
+    }
+  };
+
   if (history.length === 0) {
     return <EmptyPost />;
   }
@@ -50,7 +56,7 @@ export default function GeneratePostList() {
               {item.prompt.topic}
             </span>
             <button
-              onClick={() => removeHistory(item.id)}
+              onClick={() => handleRemove(item.id)}
               className="text-white/60 hover:cursor-pointer"
             >
               <Trash2 className="hover:text-white w-5 h-5" />
