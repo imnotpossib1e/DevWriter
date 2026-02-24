@@ -15,16 +15,18 @@ export default function GeneratePostList() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-7">
+    <div className="grid md:grid-cols-2 gird-cols-1 gap-7">
       {history.map(item => (
         <div
           key={item.id}
-          className="flex flex-col justify-between bg-white/10 border border-white/50 p-7 rounded-lg"
+          className="flex flex-col gap-3 justify-between bg-white/10 border border-white/50 md:p-7 p-5 rounded-lg"
         >
-          <div className="flex flex-col gap-1">
-            <div className="flex gap-5">
+          <div className="flex flex-col">
+            <div className="flex md:gap-5 gap-3">
               <Link href={`/generatePosts/${item.id}`} className="w-full">
-                <h3 className="font-bold">{item.post.title}</h3>
+                <h3 className="font-bold lg:text-lg text-base">
+                  {item.post.title}
+                </h3>
               </Link>
               <Tag template={item.prompt.template}>
                 {item.prompt.template === 'tutorial'
@@ -34,19 +36,24 @@ export default function GeneratePostList() {
                     : '트러블슈팅'}
               </Tag>
             </div>
-            <p className="text-sm text-gray-500">
-              {new Date(item.createdAt).toLocaleDateString('ko-KR')}
+            <p className="flex md:gap-3 gap-2">
+              <span className="text-sm text-gray-500">
+                {new Date(item.createdAt).toLocaleDateString('ko-KR')}
+              </span>
+              <span className="text-sm text-gray-500">
+                {item.post.content.length} words
+              </span>
             </p>
           </div>
           <div className="flex gap-2 mt-2 items-center">
-            <span className="w-full text-sm text-white/90">
+            <span className="w-full md:text-base text-sm text-white/90">
               {item.prompt.topic}
             </span>
             <button
               onClick={() => removeHistory(item.id)}
               className="text-white/60 hover:cursor-pointer"
             >
-              <Trash2 className="hover:text-white" />
+              <Trash2 className="hover:text-white w-5 h-5" />
             </button>
           </div>
         </div>
