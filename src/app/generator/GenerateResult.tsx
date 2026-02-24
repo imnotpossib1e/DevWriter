@@ -39,7 +39,7 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <div className="flex flex-col gap-4 bg-[#78DB88]/10 border border-[#78DB88]/50 rounded-lg py-3 px-4">
+        <div className="flex flex-col md:gap-4 gap-2 bg-[#78DB88]/10 border border-[#78DB88]/50 rounded-lg md:py-3 md:px-4 py-2 px-3">
           <div className="flex items-center gap-2.5">
             <CircleCheckBig className="text-[#78DB88]" />
             <div className="flex flex-col ">
@@ -47,17 +47,16 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
                 Post Generated Successfully!
               </span>
               <span className="text-[#509262] font-semibold text-sm">
-                Review your content below and save when ready
+                Review your content below and save
               </span>
             </div>
           </div>
           <hr className="text-[#78DB88]/20 border" />
-          <div className="flex flex-col gap-2 px-3">
+          <div className="flex flex-col md:gap-2 gap-1.5 px-3">
             <div className="flex gap-1.5 items-center">
-              <span>주제 :</span>
               <span>{prompt.topic}</span>
             </div>
-            <div className="flex flex-row gap-3 mt-1.5">
+            <div className="flex flex-row gap-3">
               <Tag varient="green">
                 {prompt.template === 'tutorial'
                   ? '튜토리얼'
@@ -83,8 +82,8 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-5 bg-white/10 border border-white/50 rounded-lg p-10">
-        {post.title && <h1 className="font-bold text-3xl">{post.title}</h1>}
+      <div className="flex flex-col md:gap-6 gap-4 bg-white/10 border border-white/50 rounded-lg md:p-10 p-5">
+        {post.title && <h1 className="font-bold text-2xl">{post.title}</h1>}
         <hr className="text-white/20 border" />
         {post.content && <MarkdownViewer content={post.content} />}
         <hr className="text-white/20 border" />
@@ -97,11 +96,11 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
       </div>
       <div className="flex gap-5">
         <Button onClick={handleSave}>
-          <Save />
+          <Save className="md:w-5 md:h-5 w-4 h-4" />
           Save Post
         </Button>
         <Button onClick={onRegenerate} variant="white" size="lg">
-          <Sparkles className="w-5" />
+          <Sparkles className="md:w-5 md:h-5 w-4 h-4" />
           Regenerate
         </Button>
       </div>
