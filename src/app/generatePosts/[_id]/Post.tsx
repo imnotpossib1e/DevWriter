@@ -148,25 +148,33 @@ export default function PostContent({ postId }: { postId: string }) {
         </div>
         <div>
           {!isEditing && (
-            <div className="flex gap-4 justify-end">
-              <Button
-                size="base"
-                onClick={() =>
-                  downloadMarkdown(markdownContent, `${history.post.title}.md`)
-                }
-              >
-                <Download className="md:w-5 md:h-5 w-4 h-4" />
-                Markdown
-              </Button>
-              <Button
-                size="base"
-                onClick={() =>
-                  downloadHTML(history.post || '', `${history.post.title}.html`)
-                }
-              >
-                <Download className="md:w-5 md:h-5 w-4 h-4" />
-                HTML
-              </Button>
+            <div className="flex gap-4 md:justify-end justify-between">
+              <div className="flex gap-4">
+                <Button
+                  size="base"
+                  onClick={() =>
+                    downloadMarkdown(
+                      markdownContent,
+                      `${history.post.title}.md`,
+                    )
+                  }
+                >
+                  <Download className="md:w-5 md:h-5 w-4 h-4" />
+                  Markdown
+                </Button>
+                <Button
+                  size="base"
+                  onClick={() =>
+                    downloadHTML(
+                      history.post || '',
+                      `${history.post.title}.html`,
+                    )
+                  }
+                >
+                  <Download className="md:w-5 md:h-5 w-4 h-4" />
+                  HTML
+                </Button>
+              </div>
               <Button size="sm2" onClick={() => handleCopy(markdownContent)}>
                 <Copy className="md:w-5 md:h-5 w-4 h-4" />
               </Button>
