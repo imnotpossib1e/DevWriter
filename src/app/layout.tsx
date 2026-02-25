@@ -8,8 +8,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className="flex flex-col h-full min-h-screen bg-linear-to-l from-[#2E1065] via-[#0F172A] to-[#020617]">
+    <html lang="ko" data-theme="light" suppressHydrationWarning>
+      <body className="flex flex-col h-full min-h-screen ">
         <Header />
         {children}
         <Footer />

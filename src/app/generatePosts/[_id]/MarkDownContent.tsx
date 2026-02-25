@@ -18,7 +18,7 @@ export default function MarkdownContent({ content }: MarkdownViewerProps) {
     Prism.highlightAll();
   }, [content]);
   return (
-    <div className="flex flex-col md:gap-4 gap-3 prose prose-lg max-w-none prose-p:mb-4 prose-headings:mb-2 md:text-base text-sm w-full">
+    <div className="flex flex-col md:gap-4 gap-2 prose prose-lg max-w-none prose-p:mb-4 prose-headings:mb-2 md:text-base text-sm w-full">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

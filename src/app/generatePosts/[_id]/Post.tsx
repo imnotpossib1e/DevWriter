@@ -4,6 +4,7 @@ import MarkdownContent from '@/app/generatePosts/[_id]/MarkDownContent';
 import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
 import Tag from '@/components/Tag';
+import { PostType } from '@/types/generate';
 
 import { useHistoryStore } from '@/zustand/useHistoryStore';
 import MDEditor from '@uiw/react-md-editor';
@@ -17,6 +18,7 @@ import {
   PencilOff,
   Save,
   TextSelect,
+  Trash2,
 } from 'lucide-react';
 import { marked } from 'marked';
 import { useEffect, useState } from 'react';
@@ -25,18 +27,33 @@ export default function PostContent({ postId }: { postId: string }) {
   const history = useHistoryStore(state =>
     state.history.find(item => item.id === postId),
   );
+  const { removeHistory } = useHistoryStore();
 
   const [loading, setLoading] = useState(false);
+
+  const markdownContent = `
+    title: ${history?.post.title || '제목 없음'}
+    ${history?.post.hashtags?.join(' ') || ''}
+    meta: ${history?.post.metaDescription || ''}
+
+    ${history?.post.content || ''}`;
 
   const downloadMarkdown = (markdown: string, filename: string) => {
     const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
     downloadFile(blob, filename);
   };
 
-  const downloadHTML = (markdown: string, filename: string) => {
+  const downloadHTML = (post: PostType, filename: string) => {
     marked.setOptions({ breaks: true });
-    const html = marked.parse(markdown);
-    const fullHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>포스트</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.7;}</style></head><body>${html}</body></html>`;
+    const metaHTML = `
+      <div style="background:#f0f8ff; padding:20px; margin-bottom:30px; border-left:4px solid #007acc;">
+        <h2 style="margin:0 0 10px 0; color:#007acc;">${post?.title}</h2>
+        <p><strong>해시태그:</strong> ${post?.hashtags?.join(' ')}</p>
+        <p><strong>설명:</strong> ${post?.metaDescription}</p>
+      </div>
+    `;
+    const html = metaHTML + marked.parse(post.content);
+    const fullHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${post.title}</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.7;}</style></head><body>${html}</body></html>`;
     const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
     downloadFile(blob, filename);
   };
@@ -64,6 +81,12 @@ export default function PostContent({ postId }: { postId: string }) {
     }
   };
 
+  const handleRemove = (id: string) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      removeHistory(id);
+    }
+  };
+
   const updateHistoryPost = useHistoryStore(state => state.updateHistoryPost);
   const [editContent, setEditContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -84,7 +107,7 @@ export default function PostContent({ postId }: { postId: string }) {
 
   if (!history) {
     return (
-      <div className="h-full flex flex-col justify-center items-center gap-6 my-auto ">
+      <div className="h-full flex flex-col justify-center items-center gap-6 md:my-auto my-20 ">
         <TextSelect className="w-30 h-30" strokeWidth={2} />
         <span className="flex flex-col items-center text-xl font-semibold text-center">
           해당 포스트를 찾을 수 없습니다
@@ -97,23 +120,23 @@ export default function PostContent({ postId }: { postId: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-3">
       <div className="flex md:flex-row flex-col justify-between md:items-end gap-4">
-        <div className="flex flex-col gap-3 items-start">
+        <div className="flex flex-col gap-1 items-start">
           <p className="text-2xl font-bold">{history.prompt.topic}</p>
-          <div className="flex w-full md:gap-6 md:items-end justify-between">
-            <div className="flex md:gap-1 items-center gap-0 md:text-base text-sm font-light text-white/60">
-              <span className="flex gap-2">
-                <Calendar className="md:w-5 md:h-5 w-4 h-4" />
+          <div className="flex w-full lg:gap-6 gap-3 items-end justify-between">
+            <div className="flex lg:gap-1 items-center gap-0 lg:text-base text-xs font-light text-(--text-60)">
+              <span className="flex lg:gap-2 gap-1">
+                <Calendar className="lg:w-5 lg:h-5 w-3 h-3" />
                 {new Date(history.createdAt).toLocaleDateString('ko-KR')}
               </span>
-              <Dot />
-              <span className="flex gap-2">
-                <FileText className="md:w-5 md:h-5 w-4 h-4" />
+              <Dot className="md:w-4 md:h-4 w-3 h-3" />
+              <span className="flex lg:gap-2 gap-1">
+                <FileText className="lg:w-5 lg:h-5 w-3 h-3" />
                 {history.post.content.length} words
               </span>
             </div>
-            <div className="flex md:gap-4 gap-2">
+            <div className="flex lg:gap-4 gap-2">
               <Tag template={history.prompt.template}>
                 {history.prompt.template === 'tutorial'
                   ? '튜토리얼'
@@ -133,42 +156,50 @@ export default function PostContent({ postId }: { postId: string }) {
         </div>
         <div>
           {!isEditing && (
-            <div className="flex gap-4 justify-end">
-              <Button
-                size="base"
-                onClick={() =>
-                  downloadMarkdown(
-                    history.post.content || '',
-                    `${history.post.title}.md`,
-                  )
-                }
-              >
-                <Download className="md:w-5 md:h-5 w-4 h-4" />
-                Markdown
-              </Button>
-              <Button
-                size="base"
-                onClick={() =>
-                  downloadHTML(
-                    history.post.content || '',
-                    `${history.post.title}.html`,
-                  )
-                }
-              >
-                <Download className="md:w-5 md:h-5 w-4 h-4" />
-                HTML
-              </Button>
-              <Button
-                size="sm2"
-                onClick={() => handleCopy(history.post.content)}
-              >
-                <Copy className="md:w-5 md:h-5 w-4 h-4" />
-              </Button>
+            <div className="flex lg:gap-4 gap-2 md:justify-end justify-between">
+              <div className="flex lg:gap-4 gap-2">
+                <Button
+                  size="base"
+                  onClick={() =>
+                    downloadMarkdown(
+                      markdownContent,
+                      `${history.post.title}.md`,
+                    )
+                  }
+                >
+                  <Download className="md:w-5 md:h-5 w-4 h-4" />
+                  Markdown
+                </Button>
+                <Button
+                  size="base"
+                  onClick={() =>
+                    downloadHTML(
+                      history.post || '',
+                      `${history.post.title}.html`,
+                    )
+                  }
+                >
+                  <Download className="md:w-5 md:h-5 w-4 h-4" />
+                  HTML
+                </Button>
+              </div>
+              <div className="flex lg:gap-4 gap-2">
+                <Button size="sm2" onClick={() => handleCopy(markdownContent)}>
+                  <Copy className="md:w-5 md:h-5 w-4 h-4" />
+                </Button>
+                <Button
+                  size="sm2"
+                  onClick={() => handleRemove(history.id)}
+                  // className="text-(--text-60) hover:cursor-pointer"
+                >
+                  <Trash2 className="md:w-5 md:h-5 w-4 h-4" />
+                </Button>
+              </div>
             </div>
           )}
         </div>
       </div>
-      <div className="flex flex-col w-full md:gap-6 gap-4 bg-white/10 border border-white/50 rounded-lg md:p-10 p-5">
+      <div className="flex flex-col w-full md:gap-6 gap-4 bg-(--text-10) border border-(--text-50) rounded-lg md:p-10 p-5">
         <div className="flex md:flex-row flex-col w-full md:justify-between md:gap-8 gap-4 md:items-start items-end">
           {history?.post.title && (
             <h1 className="font-bold text-2xl">{history?.post.title}</h1>
@@ -201,9 +232,9 @@ export default function PostContent({ postId }: { postId: string }) {
             )}
           </div>
         </div>
-        <hr className="text-white/20 border" />
+        <hr className="text-(--text-20) border" />
         {isEditing ? (
-          <div className="h-250">
+          <div className="h-250" data-color-mode="dark">
             <MDEditor
               value={editContent}
               onChange={value => value && setEditContent(value)}
@@ -216,10 +247,7 @@ export default function PostContent({ postId }: { postId: string }) {
         ) : (
           <MarkdownContent content={history?.post.content} />
         )}
-        {/* {history?.post.content && (
-          <MarkdownContent content={history?.post.content} />
-        )} */}
-        <hr className="text-white/20 border" />
+        <hr className="text-(--text-20) border" />
         <div className="flex gap-3">
           {history?.post.hashtags &&
             history.post.hashtags.map(tag => (
