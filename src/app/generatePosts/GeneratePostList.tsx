@@ -43,10 +43,10 @@ export default function GeneratePostList() {
               </Tag>
             </div>
             <p className="flex md:gap-3 gap-2">
-              <span className="text-sm text-gray-500">
+              <span className="md:text-sm text-xs text-gray-500">
                 {new Date(item.createdAt).toLocaleDateString('ko-KR')}
               </span>
-              <span className="text-sm text-gray-500">
+              <span className="md:text-sm text-xs text-gray-500">
                 {item.post.content.length} words
               </span>
             </p>

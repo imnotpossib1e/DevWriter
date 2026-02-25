@@ -126,12 +126,12 @@ export default function PostContent({ postId }: { postId: string }) {
           <p className="text-2xl font-bold">{history.prompt.topic}</p>
           <div className="flex w-full lg:gap-6 gap-3 items-end justify-between">
             <div className="flex lg:gap-1 items-center gap-0 lg:text-base text-xs font-light text-(--text-60)">
-              <span className="flex gap-2">
+              <span className="flex lg:gap-2 gap-1">
                 <Calendar className="lg:w-5 lg:h-5 w-3 h-3" />
                 {new Date(history.createdAt).toLocaleDateString('ko-KR')}
               </span>
               <Dot className="md:w-4 md:h-4 w-3 h-3" />
-              <span className="flex gap-2">
+              <span className="flex lg:gap-2 gap-1">
                 <FileText className="lg:w-5 lg:h-5 w-3 h-3" />
                 {history.post.content.length} words
               </span>
