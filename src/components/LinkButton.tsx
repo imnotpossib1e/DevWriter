@@ -35,7 +35,7 @@ export default function LinkButton({
   };
 
   const sizeStyle = {
-    md: 'px-4 py-2',
+    md: 'md:px-4 md:py-2 p-2',
     lg: 'md:px-7.5 px-5 md:py-3.5 py-3',
   };
 
