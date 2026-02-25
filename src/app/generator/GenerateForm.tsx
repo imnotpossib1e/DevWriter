@@ -47,22 +47,11 @@ export default function GenerateForm() {
     setIsLoading(true);
     setError(null);
     try {
-      // const topic = (formData.get('topic') as string) || '';
-      // const description = (formData.get('description') as string) || '';
-      // const keywords = (formData.get('keywords') as string) || '';
-      // const template = (formData.get('template') as string) || '';
-      // const length = (formData.get('length') as string) || 'normal';
-      // const tone = (formData.get('tone') as string) || 'professional';
-
       const res = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           topic,
-          // keyword: keywords
-          //   .split(',')
-          //   .map(k => k.trim())
-          //   .filter(Boolean),
           keywords,
           description,
           template,
@@ -71,7 +60,6 @@ export default function GenerateForm() {
         }),
       });
 
-      // if (!res.ok) throw new Error('생성 실패');
       if (!res.ok) {
         const errarData = await res.json();
         setError(errarData.error || '생성 실패');
@@ -80,7 +68,6 @@ export default function GenerateForm() {
 
       const data = await res.json();
 
-      console.log('API 응답', data);
       setResult(data);
     } catch (error) {
       console.error(error);
@@ -93,8 +80,8 @@ export default function GenerateForm() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center gap-8 bg-white/10 border border-white/50 rounded-lg p-10 m-50 text-2xl">
-        <TriangleAlert className="w-20 h-20" />
+      <div className="flex flex-col items-center md:gap-8 gap-4 bg-white/10 border border-white/50 rounded-lg p-10 md:my-30 md:mx-50 m-5 md:text-2xl text-lg">
+        <TriangleAlert className="md:w-20 md:h-20 w-10 h-10" />
         <div className="flex flex-col items-center gap-1">
           <span>글 생성에 실패했습니다.</span>
           <span>다시 시도해주세요.</span>
@@ -132,10 +119,10 @@ export default function GenerateForm() {
   }
 
   return (
-    <div className="relative overflow-hidden bg-white/10 border border-white/50 rounded-lg md:p-10 p-5">
+    <div className="relative overflow-hidden bg-(--text-10) border border-(--text-50) rounded-lg md:p-10 p-5">
       {isLoading && (
         <div className="absolute inset-0 backdrop-blur-sm flex items-center justify-center z-10">
-          <div className="absolute w-full h-full bg-black/30 z-11 animate-pulse"></div>
+          <div className="absolute w-full h-full bg-(--text-30) z-11 animate-pulse"></div>
           <div className="flex flex-col items-center gap-4 animate-none z-12">
             <FadeLoader color="white" />
             <span className="text-xl font-bold animate-none">
@@ -156,7 +143,7 @@ export default function GenerateForm() {
             htmlFor="topic"
             className="flex items-center font-bold md:text-lg text-base gap-2"
           >
-            주제<span className="text-xs text-white/50">(*필수)</span>
+            주제<span className="text-xs text-(--text-50)">(*필수)</span>
           </label>
           <Input
             name="topic"
@@ -171,7 +158,7 @@ export default function GenerateForm() {
             htmlFor="description"
             className="flex items-center font-bold md:text-lg text-base gap-2"
           >
-            추가 설명<span className="text-xs text-white/50">(선택)</span>
+            추가 설명<span className="text-xs text-(--text-50)">(선택)</span>
           </label>
           <Textarea
             name="description"
@@ -185,7 +172,7 @@ export default function GenerateForm() {
             htmlFor="keyword"
             className="flex items-center font-bold md:text-lg text-base gap-2"
           >
-            키워드 태그<span className="text-xs text-white/50">(*필수)</span>
+            키워드 태그<span className="text-xs text-(--text-50)">(*필수)</span>
           </label>
           <div className="flex gap-2.5 h-fit">
             <Input
@@ -220,7 +207,7 @@ export default function GenerateForm() {
               <Tag key={tag}>
                 {tag}
                 <button type="button" onClick={() => handleRemoveKeyword(tag)}>
-                  <X className="w-3 h-3 text-white" />
+                  <X className="w-3 h-3 text-(--text-primary)" />
                 </button>
               </Tag>
             ))}
@@ -232,14 +219,15 @@ export default function GenerateForm() {
               htmlFor="template"
               className="flex items-center font-bold md:text-lg text-base gap-2"
             >
-              템플릿 유형<span className="text-xs text-white/50">(*필수)</span>
+              템플릿 유형
+              <span className="text-xs text-(--text-50)">(*필수)</span>
             </label>
             <select
               name="template"
               id="template"
               value={template}
               onChange={e => setTemplate(e.target.value)}
-              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 pr-20 md:text-base text-sm"
+              className="w-full bg-(--text-10) border border-(--text-50) rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
               required
             >
               <option value="">템플릿 선택</option>
@@ -253,14 +241,14 @@ export default function GenerateForm() {
               htmlFor="length"
               className="flex items-center font-bold md:text-lg text-base gap-2"
             >
-              길이<span className="text-xs text-white/50">(*필수)</span>
+              길이<span className="text-xs text-(--text-50)">(*필수)</span>
             </label>
             <select
               name="length"
               id="length"
               value={length}
               onChange={e => setLength(e.target.value)}
-              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
+              className="w-full bg-(--text-10) border border-(--text-50) rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
               required
             >
               <option value="">길이 선택</option>
@@ -274,14 +262,15 @@ export default function GenerateForm() {
               htmlFor="tone"
               className="flex items-center font-bold md:text-lg text-base gap-2"
             >
-              톤 앤 매너<span className="text-xs text-white/50">(*필수)</span>
+              톤 앤 매너
+              <span className="text-xs text-(--text-50)">(*필수)</span>
             </label>
             <select
               name="tone"
               id="tone"
               value={tone}
               onChange={e => setTone(e.target.value)}
-              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
+              className="w-full bg-(--text-10) border border-(--text-50) rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
             >
               <option value="">톤 앤 매너 선택</option>
               <option value="friendly">친근한</option>

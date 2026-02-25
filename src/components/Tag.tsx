@@ -16,7 +16,7 @@ export default function Tag({
 
   const varientStyle = {
     purple: 'bg-purple/40 border-purple/90',
-    green: 'bg-[#77FFA2]/30 border-[#77FFA2]/90',
+    green: 'bg-(--green-30) border-(--green-90)',
     darkpurple: 'bg-[#826FFF]/40 border-[#826FFF]/90',
     blue: 'bg-blue-500/40 border-blue-500/90',
     red: 'bg-[#FF6363]/40 border-[#FF6363]/90',

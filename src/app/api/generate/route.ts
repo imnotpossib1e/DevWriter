@@ -7,7 +7,6 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('🚀 /api/generate 호출됨');
     const { topic, description, keywords, template, length, tone } =
       await request.json();
 
@@ -33,10 +32,6 @@ export async function POST(request: NextRequest) {
     });
 
     const content = completion.choices[0].message.content;
-    console.log('프롬프트', userPrompt);
-    console.log('결과', content);
-    console.log('🔍 content 타입:', typeof content);
-    console.log('🔍 content 길이:', content?.length);
     const result = JSON.parse(content || '{}');
     const resultBody = {
       ...result,
@@ -44,7 +39,6 @@ export async function POST(request: NextRequest) {
       createdAt: Date.now(),
     };
 
-    // return NextResponse.json(result);
     return NextResponse.json(resultBody);
   } catch (error) {
     return NextResponse.json(

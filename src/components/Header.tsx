@@ -1,7 +1,16 @@
 'use client';
 
+import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
-import { CodeXml, Link2, NotebookText, Sparkles } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
+import {
+  CodeXml,
+  Link2,
+  Moon,
+  NotebookText,
+  Sparkles,
+  Sun,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,19 +18,16 @@ import { usePathname } from 'next/navigation';
 // import './layout.css'; // nav 메뉴 해당 경로에서 active 시키는 css. header/footer 에서만 사용
 
 export default function Header() {
-  // 주소창의 path 값 추출
-  const pathname = usePathname();
-  const isActive = (path: string) =>
-    pathname.startsWith(path) ? 'nav-active' : '';
-
+  const { toggleTheme, mounted, theme } = useTheme();
+  if (!mounted) return null;
   return (
-    <header className="flex flex-nowrap justify-between items-center w-full bg-bg-dark-blue z-20 px-5.5 py-3 sticky top-0">
+    <header className="flex flex-nowrap justify-between items-center w-full bg-(--header-color) z-20 px-5.5 py-3 sticky top-0">
       <h1>
         <Link
           href="/"
           target="_self"
           title="홈 바로 가기"
-          className="flex flex-wrap gap-2.5 lg:font-extrabold md:text-2xl font-bold text-lg"
+          className="flex flex-nowrap items-center gap-2.5 lg:font-extrabold md:text-2xl font-bold text-lg"
         >
           <svg
             viewBox="0 0 36 36"
@@ -58,12 +64,12 @@ export default function Header() {
           </span>
         </Link>
       </h1>
-      <nav className="hidden md:block">
-        <ul className="flex gap-5.5">
+      <nav className="">
+        <ul className="flex md:gap-5.5 gap-2">
           <li>
             <LinkButton href="/" target="_self" title="DevWriterAI 페이지 이동">
               <CodeXml className="lg:w-5 lg:h-5 w-4 h-4" />
-              Home
+              <span className="hidden md:block">Home</span>
             </LinkButton>
           </li>
           <li>
@@ -73,7 +79,7 @@ export default function Header() {
               title="DevWriterAI 생성 페이지 이동"
             >
               <Sparkles className="lg:w-5 lg:h-5 w-4 h-4" />
-              Generate
+              <span className="hidden md:block">Generate</span>
             </LinkButton>
           </li>
           <li>
@@ -83,9 +89,18 @@ export default function Header() {
               title="DevWriterAI 포스트 목록 이동"
             >
               <NotebookText className="lg:w-5 lg:h-5 w-4 h-4" />
-              Posts
+              <span className="hidden md:block">Posts</span>
             </LinkButton>
           </li>
+          {mounted && (
+            <Button size="xs2" onClick={toggleTheme}>
+              {theme === 'dark' ? (
+                <Sun className="md:w-5 md:h-5 w-4 h-4" />
+              ) : (
+                <Moon className="md:w-5 md:h-5 w-4 h-4" />
+              )}
+            </Button>
+          )}
         </ul>
       </nav>
     </header>
