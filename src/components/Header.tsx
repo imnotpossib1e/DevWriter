@@ -21,7 +21,7 @@ export default function Header() {
           href="/"
           target="_self"
           title="홈 바로 가기"
-          className="flex flex-wrap gap-2.5 lg:font-extrabold md:text-2xl font-bold text-lg"
+          className="flex flex-nowrap items-center gap-2.5 lg:font-extrabold md:text-2xl font-bold text-lg"
         >
           <svg
             viewBox="0 0 36 36"
@@ -58,12 +58,12 @@ export default function Header() {
           </span>
         </Link>
       </h1>
-      <nav className="hidden md:block">
-        <ul className="flex gap-5.5">
+      <nav className="">
+        <ul className="flex md:gap-5.5 gap-3">
           <li>
             <LinkButton href="/" target="_self" title="DevWriterAI 페이지 이동">
               <CodeXml className="lg:w-5 lg:h-5 w-4 h-4" />
-              Home
+              <span className="hidden md:block">Home</span>
             </LinkButton>
           </li>
           <li>
@@ -73,7 +73,7 @@ export default function Header() {
               title="DevWriterAI 생성 페이지 이동"
             >
               <Sparkles className="lg:w-5 lg:h-5 w-4 h-4" />
-              Generate
+              <span className="hidden md:block">Generate</span>
             </LinkButton>
           </li>
           <li>
@@ -83,7 +83,7 @@ export default function Header() {
               title="DevWriterAI 포스트 목록 이동"
             >
               <NotebookText className="lg:w-5 lg:h-5 w-4 h-4" />
-              Posts
+              <span className="hidden md:block">Posts</span>
             </LinkButton>
           </li>
         </ul>
