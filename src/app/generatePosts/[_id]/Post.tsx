@@ -230,9 +230,6 @@ export default function PostContent({ postId }: { postId: string }) {
         ) : (
           <MarkdownContent content={history?.post.content} />
         )}
-        {/* {history?.post.content && (
-          <MarkdownContent content={history?.post.content} />
-        )} */}
         <hr className="text-white/20 border" />
         <div className="flex gap-3">
           {history?.post.hashtags &&

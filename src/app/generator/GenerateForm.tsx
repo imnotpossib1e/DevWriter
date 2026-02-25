@@ -47,22 +47,11 @@ export default function GenerateForm() {
     setIsLoading(true);
     setError(null);
     try {
-      // const topic = (formData.get('topic') as string) || '';
-      // const description = (formData.get('description') as string) || '';
-      // const keywords = (formData.get('keywords') as string) || '';
-      // const template = (formData.get('template') as string) || '';
-      // const length = (formData.get('length') as string) || 'normal';
-      // const tone = (formData.get('tone') as string) || 'professional';
-
       const res = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           topic,
-          // keyword: keywords
-          //   .split(',')
-          //   .map(k => k.trim())
-          //   .filter(Boolean),
           keywords,
           description,
           template,
@@ -71,7 +60,6 @@ export default function GenerateForm() {
         }),
       });
 
-      // if (!res.ok) throw new Error('생성 실패');
       if (!res.ok) {
         const errarData = await res.json();
         setError(errarData.error || '생성 실패');
@@ -80,7 +68,6 @@ export default function GenerateForm() {
 
       const data = await res.json();
 
-      console.log('API 응답', data);
       setResult(data);
     } catch (error) {
       console.error(error);

@@ -89,7 +89,6 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
     }
   };
 
-  // console.log('생성된 포스트', post);
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -164,8 +163,6 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
         <hr className="text-white/20 border" />
         {post.content && <MarkdownViewer content={post.content} />}
         <hr className="text-white/20 border" />
-        {/* seo */}
-        {/* {post.metaDescription && <div>{post.metaDescription}</div>} */}
         <div className="flex gap-3">
           {post.hashtags &&
             post.hashtags.map(tag => <Tag key={tag}>{tag}</Tag>)}
