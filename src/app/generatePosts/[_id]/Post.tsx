@@ -18,6 +18,7 @@ import {
   PencilOff,
   Save,
   TextSelect,
+  Trash2,
 } from 'lucide-react';
 import { marked } from 'marked';
 import { useEffect, useState } from 'react';
@@ -26,6 +27,7 @@ export default function PostContent({ postId }: { postId: string }) {
   const history = useHistoryStore(state =>
     state.history.find(item => item.id === postId),
   );
+  const { removeHistory } = useHistoryStore();
 
   const [loading, setLoading] = useState(false);
 
@@ -79,6 +81,12 @@ export default function PostContent({ postId }: { postId: string }) {
     }
   };
 
+  const handleRemove = (id: string) => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      removeHistory(id);
+    }
+  };
+
   const updateHistoryPost = useHistoryStore(state => state.updateHistoryPost);
   const [editContent, setEditContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -112,23 +120,23 @@ export default function PostContent({ postId }: { postId: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-3">
       <div className="flex md:flex-row flex-col justify-between md:items-end gap-4">
-        <div className="flex flex-col gap-3 items-start">
+        <div className="flex flex-col gap-1 items-start">
           <p className="text-2xl font-bold">{history.prompt.topic}</p>
-          <div className="flex w-full md:gap-6 md:items-end justify-between">
-            <div className="flex md:gap-1 items-center gap-0 md:text-base text-sm font-light text-(--text-60)">
+          <div className="flex w-full lg:gap-6 gap-3 items-end justify-between">
+            <div className="flex lg:gap-1 items-center gap-0 lg:text-base text-xs font-light text-(--text-60)">
               <span className="flex gap-2">
-                <Calendar className="md:w-5 md:h-5 w-4 h-4" />
+                <Calendar className="lg:w-5 lg:h-5 w-3 h-3" />
                 {new Date(history.createdAt).toLocaleDateString('ko-KR')}
               </span>
-              <Dot />
+              <Dot className="md:w-4 md:h-4 w-3 h-3" />
               <span className="flex gap-2">
-                <FileText className="md:w-5 md:h-5 w-4 h-4" />
+                <FileText className="lg:w-5 lg:h-5 w-3 h-3" />
                 {history.post.content.length} words
               </span>
             </div>
-            <div className="flex md:gap-4 gap-2">
+            <div className="flex lg:gap-4 gap-2">
               <Tag template={history.prompt.template}>
                 {history.prompt.template === 'tutorial'
                   ? '튜토리얼'
@@ -148,8 +156,8 @@ export default function PostContent({ postId }: { postId: string }) {
         </div>
         <div>
           {!isEditing && (
-            <div className="flex gap-4 md:justify-end justify-between">
-              <div className="flex gap-4">
+            <div className="flex lg:gap-4 gap-2 md:justify-end justify-between">
+              <div className="flex lg:gap-4 gap-2">
                 <Button
                   size="base"
                   onClick={() =>
@@ -175,9 +183,18 @@ export default function PostContent({ postId }: { postId: string }) {
                   HTML
                 </Button>
               </div>
-              <Button size="sm2" onClick={() => handleCopy(markdownContent)}>
-                <Copy className="md:w-5 md:h-5 w-4 h-4" />
-              </Button>
+              <div className="flex lg:gap-4 gap-2">
+                <Button size="sm2" onClick={() => handleCopy(markdownContent)}>
+                  <Copy className="md:w-5 md:h-5 w-4 h-4" />
+                </Button>
+                <Button
+                  size="sm2"
+                  onClick={() => handleRemove(history.id)}
+                  // className="text-(--text-60) hover:cursor-pointer"
+                >
+                  <Trash2 className="md:w-5 md:h-5 w-4 h-4" />
+                </Button>
+              </div>
             </div>
           )}
         </div>
