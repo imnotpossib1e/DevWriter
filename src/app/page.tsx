@@ -25,7 +25,7 @@ export default function Home() {
         <br />
         <span className="text-purple">In Seconds</span>
       </h2>
-      <h3 className="text-white/80 font-medium text-sm md:text-base flex flex-col md:flex-row gap-0 md:gap-1 items-center">
+      <h3 className="text-(--text-80) font-medium text-sm md:text-base flex flex-col md:flex-row gap-0 md:gap-1 items-center">
         <span>주제만 입력하세요,</span>
         <span>AI가 개발자용 기술 블로그 글을 완성합니다.</span>
       </h3>

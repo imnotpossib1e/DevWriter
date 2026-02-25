@@ -117,7 +117,7 @@ export default function PostContent({ postId }: { postId: string }) {
         <div className="flex flex-col gap-3 items-start">
           <p className="text-2xl font-bold">{history.prompt.topic}</p>
           <div className="flex w-full md:gap-6 md:items-end justify-between">
-            <div className="flex md:gap-1 items-center gap-0 md:text-base text-sm font-light text-white/60">
+            <div className="flex md:gap-1 items-center gap-0 md:text-base text-sm font-light text-(--text-60)">
               <span className="flex gap-2">
                 <Calendar className="md:w-5 md:h-5 w-4 h-4" />
                 {new Date(history.createdAt).toLocaleDateString('ko-KR')}
@@ -182,7 +182,7 @@ export default function PostContent({ postId }: { postId: string }) {
           )}
         </div>
       </div>
-      <div className="flex flex-col w-full md:gap-6 gap-4 bg-white/10 border border-white/50 rounded-lg md:p-10 p-5">
+      <div className="flex flex-col w-full md:gap-6 gap-4 bg-(--text-10) border border-(--text-50) rounded-lg md:p-10 p-5">
         <div className="flex md:flex-row flex-col w-full md:justify-between md:gap-8 gap-4 md:items-start items-end">
           {history?.post.title && (
             <h1 className="font-bold text-2xl">{history?.post.title}</h1>
@@ -215,7 +215,7 @@ export default function PostContent({ postId }: { postId: string }) {
             )}
           </div>
         </div>
-        <hr className="text-white/20 border" />
+        <hr className="text-(--text-20) border" />
         {isEditing ? (
           <div className="h-250" data-color-mode="dark">
             <MDEditor
@@ -230,7 +230,7 @@ export default function PostContent({ postId }: { postId: string }) {
         ) : (
           <MarkdownContent content={history?.post.content} />
         )}
-        <hr className="text-white/20 border" />
+        <hr className="text-(--text-20) border" />
         <div className="flex gap-3">
           {history?.post.hashtags &&
             history.post.hashtags.map(tag => (

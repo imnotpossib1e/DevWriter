@@ -85,13 +85,83 @@
 body {
   /* 기본 폰트 선언 */
   font-family: 'Pretendard', sans-serif;
-  color: white;
+  color: var(--text-primary, white);
 
   /* 기본 배경색 선언 */
-  background-color: #030622;
+  /* background-color: var(--bg-primary, #030622); */
   word-break: keep-all;
 
   height: 100%;
+}
+
+[data-theme='dark'] {
+  --bg-from: #2e1065;
+  --bg-via: #0f172a;
+  --bg-to: #020617;
+  --text-primary: white;
+
+  --text-90: rgba(255, 255, 255, 0.9);
+  --text-80: rgba(255, 255, 255, 0.8);
+  --text-60: rgba(255, 255, 255, 0.6);
+  --text-50: rgba(255, 255, 255, 0.5);
+  --text-30: rgba(255, 255, 255, 0.3);
+  --text-20: rgba(255, 255, 255, 0.2);
+  --text-10: rgba(255, 255, 255, 0.1);
+
+  --green-90: rgb(119, 255, 162, 0.9);
+  --green-50: rgba(120, 219, 137, 0.5);
+  --green-20: rgb(120, 219, 136, 0.2);
+  --green-10: rgb(120, 219, 136, 0.1);
+  --green-30: rgb(119, 255, 162, 0.3);
+
+  --text-green: #78db88;
+  --text-light-green: #9fecb2;
+
+  --header-color: var(--color-bg-dark-blue);
+  --text-layout: var(--color-gray-400);
+
+  background: linear-gradient(
+    to bottom right,
+    var(--bg-from),
+    var(--bg-via),
+    var(--bg-to)
+  ) !important;
+  color: var(--text-primary);
+}
+
+[data-theme='light'] {
+  --bg-from: #e2dfff;
+  --bg-via: #ffffff;
+  --bg-to: #6200ff;
+  --text-primary: black;
+
+  --text-90: rgba(0, 0, 0, 0.9);
+  --text-80: rgba(0, 0, 0, 0.8);
+  --text-60: rgba(0, 0, 0, 0.6);
+  --text-50: rgba(0, 0, 0, 0.5);
+  --text-30: rgba(0, 0, 0, 0.3);
+  --text-20: rgba(0, 0, 0, 0.2);
+  --text-10: rgba(0, 0, 0, 0.1);
+
+  --green-90: rgb(119, 255, 162, 0.9);
+  --green-50: rgba(120, 219, 137, 0.8);
+  --green-20: rgba(120, 219, 136, 0.7);
+  --green-10: rgba(120, 219, 136, 0.3);
+  --green-30: rgba(107, 214, 141, 0.384);
+
+  --text-green: #2db345;
+  --text-light-green: #009a26;
+
+  --header-color: #e2dfff;
+  --text-layout: var(--color-gray-600);
+
+  background: linear-gradient(
+    to bottom right,
+    var(--bg-from),
+    var(--bg-via),
+    var(--bg-to)
+  ) !important;
+  color: var(--text-primary);
 }
 
 @theme {

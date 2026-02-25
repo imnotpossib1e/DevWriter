@@ -13,7 +13,7 @@ export default function RootLayout({
       <div className="flex flex-col min-h-screen h-full lg:w-5xl w-full lg:mx-auto md:pt-15 pt-10  md:px-10 px-5 gap-6">
         <Link
           href="/generatePosts"
-          className="flex flex-nowrap items-center md:gap-4 gap-2 font-bold md:text-base text-sm text-gray-400"
+          className="flex flex-nowrap items-center md:gap-4 gap-2 font-bold md:text-base text-sm text-(--text-layout)"
         >
           <ArrowLeft className="md:w-5 md:h-5 w-4 h-4" />
           Back to Posts

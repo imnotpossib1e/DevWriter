@@ -92,11 +92,11 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <div className="flex flex-col md:gap-4 gap-2 bg-[#78DB88]/10 border border-[#78DB88]/50 rounded-lg md:py-3 md:px-4 py-2 px-3">
+        <div className="flex flex-col md:gap-4 gap-2 bg-(--green-10) border border-(--green-50) rounded-lg md:py-3 md:px-4 py-2 px-3">
           <div className="flex items-center gap-2.5">
-            <CircleCheckBig className="text-[#78DB88]" />
+            <CircleCheckBig className="text-(--text-green)" />
             <div className="flex flex-col ">
-              <span className="text-[#9FECB2] font-bold">
+              <span className="text-(--text-light-green) font-bold">
                 Post Generated Successfully!
               </span>
               <span className="text-[#509262] font-semibold text-sm">
@@ -104,7 +104,7 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
               </span>
             </div>
           </div>
-          <hr className="text-[#78DB88]/20 border" />
+          <hr className="text-(--green-20) border" />
           <div className="flex flex-col md:gap-2 gap-1.5 px-3">
             <div className="flex gap-1.5 items-center">
               <span>{prompt.topic}</span>
@@ -158,11 +158,11 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
           <Copy className="md:w-5 md:h-5 w-4 h-4" />
         </Button>
       </div>
-      <div className="flex flex-col md:gap-6 gap-4 bg-white/10 border border-white/50 rounded-lg md:p-10 p-5">
+      <div className="flex flex-col md:gap-6 gap-4 bg-(--text-10) border border-(--text-50) rounded-lg md:p-10 p-5">
         {post.title && <h1 className="font-bold text-2xl">{post.title}</h1>}
-        <hr className="text-white/20 border" />
+        <hr className="text-(--text-20) border" />
         {post.content && <MarkdownViewer content={post.content} />}
-        <hr className="text-white/20 border" />
+        <hr className="text-(--text-20) border" />
         <div className="flex gap-3">
           {post.hashtags &&
             post.hashtags.map(tag => <Tag key={tag}>{tag}</Tag>)}

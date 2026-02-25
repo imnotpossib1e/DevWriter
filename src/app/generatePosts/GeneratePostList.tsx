@@ -25,7 +25,7 @@ export default function GeneratePostList() {
       {history.map(item => (
         <div
           key={item.id}
-          className="flex flex-col gap-3 justify-between bg-white/10 border border-white/50 md:p-7 p-5 rounded-lg"
+          className="flex flex-col gap-3 justify-between bg-(--text-10) border border-(--text-50) md:p-7 p-5 rounded-lg"
         >
           <div className="flex flex-col">
             <div className="flex md:gap-5 gap-3">
@@ -52,14 +52,14 @@ export default function GeneratePostList() {
             </p>
           </div>
           <div className="flex gap-2 mt-2 items-center">
-            <span className="w-full md:text-base text-sm text-white/90">
+            <span className="w-full md:text-base text-sm text-(--text-90)">
               {item.prompt.topic}
             </span>
             <button
               onClick={() => handleRemove(item.id)}
-              className="text-white/60 hover:cursor-pointer"
+              className="text-(--text-60) hover:cursor-pointer"
             >
-              <Trash2 className="hover:text-white w-5 h-5" />
+              <Trash2 className="hover:text-(--text-primary) w-5 h-5" />
             </button>
           </div>
         </div>
