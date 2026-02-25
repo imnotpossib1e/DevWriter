@@ -217,7 +217,7 @@ export default function PostContent({ postId }: { postId: string }) {
         </div>
         <hr className="text-white/20 border" />
         {isEditing ? (
-          <div className="h-250">
+          <div className="h-250" data-color-mode="dark">
             <MDEditor
               value={editContent}
               onChange={value => value && setEditContent(value)}
