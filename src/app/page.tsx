@@ -1,5 +1,21 @@
 import LinkButton from '@/components/LinkButton';
 import { NotebookText, PencilLine, Sparkles } from 'lucide-react';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: `DevWriterAI - 개발자를 위한 AI 기술 블로그 생성 플랫폼`,
+    description: `개발자를 위한 AI 기술 블로그 자동 생성`,
+    openGraph: {
+      title: `evWriterAI - 개발자를 위한 AI 기술 블로그 생성 플랫폼`,
+      description: `개발자를 위한 AI 기술 블로그 자동 생성`,
+      url: `/`,
+      images: {
+        url: 'https://devwriterai.vercel.app/DevWriterAI.png',
+      },
+    },
+  };
+}
 
 export default function Home() {
   return (
