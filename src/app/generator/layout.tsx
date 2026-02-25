@@ -25,7 +25,7 @@ export default function RootLayout({
         <div className="flex flex-col font-bold">
           <h2 className="md:text-2xl text-lg">Blog Generator</h2>
           <span className="text-gray-400 md:text-base text-sm">
-            Create technical content in seconds
+            몇 초 만에 완성되는 기술 블로그
           </span>
         </div>
       </div>
