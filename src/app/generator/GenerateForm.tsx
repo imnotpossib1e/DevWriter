@@ -239,7 +239,7 @@ export default function GenerateForm() {
               id="template"
               value={template}
               onChange={e => setTemplate(e.target.value)}
-              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 pr-20 md:text-base text-sm"
+              className="w-full bg-white/10 border border-white/50 rounded-lg md:py-3 py-2 md:px-4 px-2 md:text-base text-sm"
               required
             >
               <option value="">템플릿 선택</option>
