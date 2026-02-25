@@ -93,8 +93,8 @@ export default function GenerateForm() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center gap-8 bg-white/10 border border-white/50 rounded-lg p-10 m-50 text-2xl">
-        <TriangleAlert className="w-20 h-20" />
+      <div className="flex flex-col items-center md:gap-8 gap-4 bg-white/10 border border-white/50 rounded-lg p-10 md:my-30 md:mx-50 m-5 md:text-2xl text-lg">
+        <TriangleAlert className="md:w-20 md:h-20 w-10 h-10" />
         <div className="flex flex-col items-center gap-1">
           <span>글 생성에 실패했습니다.</span>
           <span>다시 시도해주세요.</span>
