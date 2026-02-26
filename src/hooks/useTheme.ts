@@ -8,11 +8,10 @@ export function useTheme() {
 
   useEffect(() => {
     setMounted(true);
-
-    // localStorage에서 테마 불러오기
     const savedTheme = localStorage.getItem('theme') as 'dark' | 'light';
     if (savedTheme) {
       document.documentElement.dataset.theme = savedTheme;
+      setTheme(savedTheme);
     } else {
       // 기본값: 다크모드
       document.documentElement.dataset.theme = 'dark';
