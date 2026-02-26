@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `DevWriterAI - 개발자를 위한 AI 기술 블로그 생성 플랫폼`,
     description: `개발자를 위한 AI 기술 블로그 자동 생성`,
     openGraph: {
-      title: `evWriterAI - 개발자를 위한 AI 기술 블로그 생성 플랫폼`,
+      title: `DevWriterAI - 개발자를 위한 AI 기술 블로그 생성 플랫폼`,
       description: `개발자를 위한 AI 기술 블로그 자동 생성`,
       url: `/`,
       images: {
