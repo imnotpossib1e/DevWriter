@@ -21,9 +21,11 @@ import {
   Trash2,
 } from 'lucide-react';
 import { marked } from 'marked';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function PostContent({ postId }: { postId: string }) {
+  const router = useRouter();
   const history = useHistoryStore(state =>
     state.history.find(item => item.id === postId),
   );
@@ -84,6 +86,7 @@ export default function PostContent({ postId }: { postId: string }) {
   const handleRemove = (id: string) => {
     if (window.confirm('삭제하시겠습니까?')) {
       removeHistory(id);
+      router.push('/generatePosts');
     }
   };
 
@@ -248,7 +251,7 @@ export default function PostContent({ postId }: { postId: string }) {
           <MarkdownContent content={history?.post.content} />
         )}
         <hr className="text-(--text-20) border" />
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           {history?.post.hashtags &&
             history.post.hashtags.map(tag => (
               <Tag varient="purple" key={tag}>

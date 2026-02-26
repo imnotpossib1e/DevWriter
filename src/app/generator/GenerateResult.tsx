@@ -163,7 +163,7 @@ export default function GenerateResult({ post, prompt, onRegenerate }: Props) {
         <hr className="text-(--text-20) border" />
         {post.content && <MarkdownViewer content={post.content} />}
         <hr className="text-(--text-20) border" />
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           {post.hashtags &&
             post.hashtags.map(tag => <Tag key={tag}>{tag}</Tag>)}
         </div>
