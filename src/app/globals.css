@@ -89,6 +89,7 @@ body {
 
   /* 기본 배경색 선언 */
   /* background-color: var(--bg-primary, #030622); */
+
   word-break: keep-all;
 
   height: 100%;
@@ -164,6 +165,15 @@ body {
   color: var(--text-primary);
 }
 
+[data-theme='light'] select option {
+  background-color: white !important;
+  color: black !important;
+}
+[data-theme='dark'] select option {
+  background-color: black !important;
+  color: white !important;
+}
+
 @theme {
   /* 색상 변수 설정 */
   --color-purple: #a38cf3;
@@ -184,13 +194,18 @@ body {
 }
 
 .prose h1 {
-  font-size: 1.5rem !important;
+  font-size: 2rem !important;
 }
 .prose h2 {
-  font-size: 1.25rem !important;
+  font-size: 1.5rem !important;
 }
 .prose h3 {
-  font-size: 1rem !important;
+  font-size: 1.25rem !important;
+}
+
+.prose pre code {
+  white-space: pre-wrap !important;
+  font-size: 0.875rem;
 }
 
 .w-md-editor textarea {
