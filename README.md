@@ -1,9 +1,9 @@
 # DevWriterAI
-> 주제만 입력하면 AI가 완성하는 기술 블로그 생성기
+> 주제만 입력하면 AI가 완성하는 기술 블로그 생성 플랫폼
 
 <a href="https://dokidoki-playlists.netlify.app/" target="_blank" title="두근두근 플레이리스트로 이동">
 
-이미지 추가
+![#0f172a](https://github.com/user-attachments/assets/b57a1ccd-e5ac-4479-8b9f-92dff283575c)
 
 </a>
 
@@ -11,7 +11,7 @@
 <br/>
 
 ## 프로젝트 개요
-DevWriterAI는 개발자를 위한 기술 블로그 생성기입니다.<br/>
+DevWriterAI는 개발자를 위한 기술 블로그 생성 플랫폼입니다.<br/>
 OpenAI API를 활용해 주제를 입력하면 몇 초 만에 완성도 높은 마크다운 기술 블로그를 만들어줍니다.
 <br/>
 
