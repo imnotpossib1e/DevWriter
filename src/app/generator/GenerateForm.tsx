@@ -149,7 +149,7 @@ export default function GenerateForm() {
             name="topic"
             value={topic}
             onChange={e => setTopic(e.target.value)}
-            placeholder="e.g. 'Node.js와 Express로 RESR API 구축하기'"
+            placeholder="생성할 포스트의 주제를 입력하세요"
             required
           />
         </div>
@@ -164,7 +164,7 @@ export default function GenerateForm() {
             name="description"
             value={description}
             onChange={e => setDescription(e.target.value)}
-            placeholder="주제에 대한 세부 설명, 강조할 포인트 등을 입력"
+            placeholder="주제에 대한 세부 설명, 강조할 포인트 등을 입력하세요"
           />
         </div>
         <div className="flex flex-col md:gap-2 gap-1.5">
